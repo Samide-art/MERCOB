@@ -117,8 +117,26 @@
   <div class="home-hero"><div><span class="home-badge">● جاهز لمشوارك القادم</span><h2>مشوارك يبدأ من هنا</h2><p>حدد نقطة الانطلاق والوجهة، وابدأ طلبك بسهولة.</p></div><div class="home-route-icon">↗</div></div>
   <form id="rideRequestForm" class="ride-request-card">
     <div class="section-heading"><div><p class="home-section-kicker">طلب سريع</p><h2>اطلب مشوارًا</h2></div><span class="home-step">01</span></div>
-    <label class="field-label" for="pickupAddress">نقطة الانطلاق</label><input class="text-field home-input" id="pickupAddress" required maxlength="240" placeholder="أين نلتقي؟">
-    <label class="field-label" for="destinationAddress">الوجهة</label><input class="text-field home-input" id="destinationAddress" required maxlength="240" placeholder="إلى أين تذهب؟">
+    <fieldset class="location-group">
+      <legend data-i18n="pickupSection">نقطة الانطلاق</legend>
+      <label class="field-label" for="pickupWilaya" data-i18n="wilayaLabel">الولاية</label>
+      <select class="text-field home-input location-wilaya" id="pickupWilaya" required><option value="">اختر الولاية</option></select>
+      <label class="field-label" for="pickupCommune" data-i18n="communeLabel">البلدية</label>
+      <input class="text-field home-input location-commune" id="pickupCommune" list="pickupCommuneOptions" required maxlength="120" placeholder="اختر أو اكتب اسم البلدية" autocomplete="off">
+      <datalist id="pickupCommuneOptions"></datalist>
+      <label class="field-label" for="pickupNeighborhood" data-i18n="neighborhoodLabel">الحي / الشارع (اختياري)</label>
+      <input class="text-field home-input location-neighborhood" id="pickupNeighborhood" maxlength="160" placeholder="اكتب اسم الحي أو الشارع">
+    </fieldset>
+    <fieldset class="location-group">
+      <legend data-i18n="destinationSection">الوجهة</legend>
+      <label class="field-label" for="destinationWilaya" data-i18n="wilayaLabel">الولاية</label>
+      <select class="text-field home-input location-wilaya" id="destinationWilaya" required><option value="">اختر الولاية</option></select>
+      <label class="field-label" for="destinationCommune" data-i18n="communeLabel">البلدية</label>
+      <input class="text-field home-input location-commune" id="destinationCommune" list="destinationCommuneOptions" required maxlength="120" placeholder="اختر أو اكتب اسم البلدية" autocomplete="off">
+      <datalist id="destinationCommuneOptions"></datalist>
+      <label class="field-label" for="destinationNeighborhood" data-i18n="neighborhoodLabel">الحي / الشارع (اختياري)</label>
+      <input class="text-field home-input location-neighborhood" id="destinationNeighborhood" maxlength="160" placeholder="اكتب اسم الحي أو الشارع">
+    </fieldset>
     <div class="home-form-row"><div><label class="field-label" for="requestedPrice">السعر المقترح (دج)</label><input class="text-field home-input" id="requestedPrice" type="number" min="1" step="1" required placeholder="مثال: 500"></div>
     <div><label class="field-label" for="rideType">نوع الخدمة</label><select class="text-field home-input" id="rideType"><option value="standard">عادي</option><option value="comfort">مريح</option><option value="van">سيارة كبيرة</option><option value="delivery">توصيل</option></select></div></div>
     <p class="form-message" id="rideRequestMessage" role="status" aria-live="polite"></p><button class="button button-primary" id="requestRideButton" type="submit">إرسال طلب المشوار <span class="button-arrow">←</span></button>
