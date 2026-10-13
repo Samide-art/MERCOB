@@ -156,6 +156,65 @@ function communesForWilaya(code){
  const names=[];(w.dairas||[]).forEach(d=>(d.communes||[]).forEach(c=>{const name=(language==="fr"?c.nom_fr:c.nom_ar)||c.nom_fr||c.nom_ar;if(name&&!names.includes(name))names.push(name);}));
  return names.sort((a,b)=>a.localeCompare(b,language==="fr"?"fr":"ar"));
 }
+
+let rideMap=null, pickupMapMarker=null, destinationMapMarker=null, activeMapTarget="pickup";
+let pickupCoordinates=null, destinationCoordinates=null;
+function setMapHint(message){const el=$("mapHint");if(el)el.textContent=message;}
+function updateMapSummary(){
+ const summary=$("mapRouteSummary");if(!summary)return;
+ const fmt=p=>p? p.lat.toFixed(5)+", "+p.lng.toFixed(5):"لم تُحدد بعد";
+ summary.hidden=false;
+ summary.innerHTML='<div><strong>الانطلاق</strong><span>'+fmt(pickupCoordinates)+'</span></div><div><strong>الوجهة</strong><span>'+fmt(destinationCoordinates)+'</span></div>';
+ if(pickupCoordinates&&destinationCoordinates){
+  const distance=rideMap?rideMap.distance([pickupCoordinates.lat,pickupCoordinates.lng],[destinationCoordinates.lat,destinationCoordinates.lng])/1000:0;
+  summary.innerHTML+='<p>المسافة المباشرة التقريبية: '+distance.toFixed(1)+' كم. المسافة عبر الطرق قد تكون أطول.</p>';
+ }
+}
+function updateMapTargetButtons(){
+ $("choosePickupMap")?.classList.toggle("active",activeMapTarget==="pickup");
+ $("chooseDestinationMap")?.classList.toggle("active",activeMapTarget==="destination");
+ setMapHint(activeMapTarget==="pickup"?"اضغط على الخريطة لتحديد نقطة الانطلاق.":"اضغط على الخريطة لتحديد الوجهة.");
+}
+function setMapPoint(target,latlng){
+ const point={lat:Number(latlng.lat.toFixed(6)),lng:Number(latlng.lng.toFixed(6))};
+ if(target==="pickup"){
+  pickupCoordinates=point;
+  if(!pickupMapMarker)pickupMapMarker=L.marker(latlng,{draggable:true}).addTo(rideMap).bindPopup("نقطة الانطلاق");
+  else pickupMapMarker.setLatLng(latlng);
+  pickupMapMarker.off("dragend").on("dragend",()=>{const p=pickupMapMarker.getLatLng();pickupCoordinates={lat:Number(p.lat.toFixed(6)),lng:Number(p.lng.toFixed(6))};updateMapSummary();});
+ }else{
+  destinationCoordinates=point;
+  if(!destinationMapMarker)destinationMapMarker=L.marker(latlng,{draggable:true}).addTo(rideMap).bindPopup("الوجهة");
+  else destinationMapMarker.setLatLng(latlng);
+  destinationMapMarker.off("dragend").on("dragend",()=>{const p=destinationMapMarker.getLatLng();destinationCoordinates={lat:Number(p.lat.toFixed(6)),lng:Number(p.lng.toFixed(6))};updateMapSummary();});
+ }
+ updateMapSummary();
+ if(pickupCoordinates&&destinationCoordinates){
+  const bounds=L.latLngBounds([[pickupCoordinates.lat,pickupCoordinates.lng],[destinationCoordinates.lat,destinationCoordinates.lng]]);
+  rideMap.fitBounds(bounds.pad(0.25),{maxZoom:14});
+  setMapHint("تم تحديد النقطتين. يمكنك تحريك العلامات لتعديل الموقع.");
+ }else setMapHint(target==="pickup"?"تم تحديد نقطة الانطلاق. اختر الوجهة الآن.":"تم تحديد الوجهة. اختر نقطة الانطلاق إذا لم تحددها بعد.");
+}
+function initRideMap(){
+ const el=$("rideMap");
+ if(!el||!window.L){if(el)el.innerHTML='<p class="map-unavailable">تعذر تحميل الخريطة. تحقق من اتصال الإنترنت ثم أعد تحميل الصفحة.</p>';return;}
+ if(rideMap){rideMap.invalidateSize();return;}
+ rideMap=L.map(el,{scrollWheelZoom:false}).setView([34.6728,3.2631],11);
+ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'}).addTo(rideMap);
+ rideMap.on("click",event=>setMapPoint(activeMapTarget,event.latlng));
+ $("choosePickupMap").addEventListener("click",()=>{activeMapTarget="pickup";updateMapTargetButtons();});
+ $("chooseDestinationMap").addEventListener("click",()=>{activeMapTarget="destination";updateMapTargetButtons();});
+ $("useMyLocation").addEventListener("click",()=>{
+  if(!navigator.geolocation){setMapHint("المتصفح لا يدعم تحديد الموقع.");return;}
+  setMapHint("جارٍ تحديد موقعك…");
+  navigator.geolocation.getCurrentPosition(position=>{
+   const p={lat:position.coords.latitude,lng:position.coords.longitude};
+   rideMap.setView(p,16);setMapPoint(activeMapTarget,p);
+  },error=>{console.warn("Geolocation unavailable",error);setMapHint("تعذر تحديد موقعك. اسمح بالوصول للموقع أو اختر نقطة على الخريطة.");},{enableHighAccuracy:true,timeout:10000,maximumAge:60000});
+ });
+ updateMapTargetButtons();
+}
+
 function refreshCommuneLists(){
  [["pickupWilaya","pickupCommuneOptions","pickupCommune"],["destinationWilaya","destinationCommuneOptions","destinationCommune"]].forEach(([wilayaId,listId,inputId])=>{
   const select=$(wilayaId),list=$(listId),input=$(inputId);if(!select||!list||!input)return;
@@ -181,13 +240,14 @@ $("rideRequestForm").addEventListener("submit",async event=>{
  const pickup=[pN,pC,pWilaya].filter(Boolean).join("، "),destination=[dN,dC,dWilaya].filter(Boolean).join("، ");
  button.disabled=true;
  try{
-  const {error}=await client.from("rides").insert({rider_id:user.id,pickup_address:pickup,destination_address:destination,requested_price:price,currency:"DZD",ride_type:$("rideType").value,payment_method:"cash"});
+  const {error}=await client.from("rides").insert({rider_id:user.id,pickup_address:pickup,destination_address:destination,pickup_latitude:pickupCoordinates?.lat??null,pickup_longitude:pickupCoordinates?.lng??null,destination_latitude:destinationCoordinates?.lat??null,destination_longitude:destinationCoordinates?.lng??null,requested_price:price,currency:"DZD",ride_type:$("rideType").value,payment_method:"cash"});
   if(error)throw error;message.textContent=language==="ar"?"تم حفظ طلبك بنجاح.":"Votre demande a été enregistrée.";message.classList.add("success");
-  $("rideRequestForm").reset();refreshCommuneLists();await loadDashboard(user);
+  $("rideRequestForm").reset();pickupCoordinates=null;destinationCoordinates=null;if(pickupMapMarker){rideMap.removeLayer(pickupMapMarker);pickupMapMarker=null;}if(destinationMapMarker){rideMap.removeLayer(destinationMapMarker);destinationMapMarker=null;}updateMapSummary();refreshCommuneLists();await loadDashboard(user);
  }catch(error){console.error("MERCOB ride request error:",error);message.textContent=(language==="ar"?"تعذر حفظ الطلب: ":"Impossible d’enregistrer la demande : ")+(error?.message||"");}
  finally{button.disabled=false;}
 });
 loadLocationData();
+initRideMap();
 applyLanguage();
 document.querySelector("[data-home]").addEventListener("click",async event=>{event.preventDefault();const client=supabaseClient();if(client){const {data}=await client.auth.getSession();if(data.session){showDashboard(data.session.user);return;}}showWelcome();});
 $("togglePassword").addEventListener("click",()=>{const input=$("password");input.type=input.type==="password"?"text":"password";updateFormCopy();});
