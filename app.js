@@ -13,6 +13,7 @@ const translations = {
     fullNameLabel:"الاسم الكامل", birthDateLabel:"تاريخ الميلاد", showPassword:"إظهار", hidePassword:"إخفاء",
     acceptTerms:"أوافق على شروط الاستخدام وسياسة الخصوصية.",
     demoNote:"تسجيل الدخول بالبريد الإلكتروني وكلمة المرور فقط.",
+    confirmationRequired:"تم إنشاء الحساب. افتح بريدك الإلكتروني واضغط رابط التأكيد، ثم عد لتسجيل الدخول.",
     supportLine:"خطوتك الأولى نحو مشوار أسهل.", loginTitle:"تسجيل الدخول",
     signupTitle:"إنشاء حساب", loginIntro:"أدخل بريدك الإلكتروني وكلمة المرور.",
     signupIntro:"أدخل اسمك الكامل وتاريخ ميلادك وبريدك الإلكتروني وكلمة المرور.",
@@ -46,6 +47,7 @@ const translations = {
     fullNameLabel:"Nom complet", birthDateLabel:"Date de naissance", showPassword:"Afficher", hidePassword:"Masquer",
     acceptTerms:"J’accepte les conditions d’utilisation et la politique de confidentialité.",
     demoNote:"Connexion par adresse e-mail et mot de passe uniquement.",
+    confirmationRequired:"Compte créé. Ouvrez votre boîte e-mail, cliquez sur le lien de confirmation, puis revenez vous connecter.",
     supportLine:"Le premier pas vers un trajet plus simple.", loginTitle:"Se connecter",
     signupTitle:"Créer un compte", loginIntro:"Saisissez votre adresse e-mail et votre mot de passe.",
     signupIntro:"Saisissez votre nom complet, votre date de naissance, votre adresse e-mail et un mot de passe.",
@@ -134,7 +136,7 @@ $("authForm").addEventListener("submit",async event=>{
    const {data,error}=await client.auth.signUp({email:identifier.value,password,options});
    if(error)throw error;
    if(!data.session){
-    showMessage(t("emailConfirm"));
+    showMessage(t("confirmationRequired"),true);
     return;
    }
    announceSignedIn(data.user);success=true;showWelcome();
