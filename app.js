@@ -24,7 +24,8 @@ const translations = {
     termsError:"يرجى الموافقة على شروط الاستخدام وسياسة الخصوصية.",
     authNotReady:"الاتصال الآمن غير جاهز. حدّث الصفحة وحاول مرة أخرى.",
     signupSuccess:"تم إنشاء الحساب بنجاح.",
-    emailConfirm:"إذا كان تأكيد البريد مفعّلًا في Supabase، يجب تأكيد البريد قبل تسجيل الدخول.",
+    emailConfirm:"لإتمام التسجيل دون رابط تأكيد، عطّل Confirm email في إعدادات Supabase Auth.",
+    phoneConfirm:"لإنشاء الحساب دون SMS، عطّل Confirm phone في إعدادات Supabase Auth.",
     loginSuccess:"تم تسجيل الدخول بنجاح.",
     signupError:"تعذّر إنشاء الحساب. تحقق من البيانات وإعدادات Supabase.",
     loginError:"تعذّر تسجيل الدخول. تحقق من بياناتك.",
@@ -55,7 +56,8 @@ const translations = {
     termsError:"Veuillez accepter les conditions et la politique de confidentialité.",
     authNotReady:"Connexion sécurisée indisponible. Actualisez la page et réessayez.",
     signupSuccess:"Compte créé avec succès.",
-    emailConfirm:"Si la confirmation e-mail est activée dans Supabase, confirmez votre adresse avant de vous connecter.",
+    emailConfirm:"Pour créer un compte sans lien de confirmation, désactivez Confirm email dans les paramètres Supabase Auth.",
+    phoneConfirm:"Pour créer un compte sans SMS, désactivez Confirm phone dans les paramètres Supabase Auth."
     loginSuccess:"Connexion réussie.", signupError:"Inscription impossible. Vérifiez les données et Supabase.",
     loginError:"Connexion impossible. Vérifiez vos identifiants.", signedIn:"Vous êtes connecté."
   }
