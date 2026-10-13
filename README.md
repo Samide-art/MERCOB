@@ -23,13 +23,33 @@ This is a static HTML/CSS/JavaScript prototype and requires no build step. Open 
 
 Typography: Montserrat for the Latin wordmark; Cairo for Arabic interface text.
 
-## Important status
+## Supabase status
 
-Authentication is **not connected to a backend yet**. The current form performs only client-side validation and displays a prototype status message. Do not use it to collect real credentials. Before production, connect a secure authentication provider/API, implement server-side validation, secure session handling, rate limiting, and privacy/terms pages.
+The browser client is configured for the Supabase project used by MERCOB. The authentication form now calls Supabase Phone Auth for Algerian numbers in E.164 format (+213), and supports SMS OTP verification when phone confirmation is enabled.
+
+**Before testing real sign-up/login:**
+1. Open the [MERCOB Supabase project](https://supabase.com/dashboard/project/nzvvxajycmwfpalnjmdh).
+2. In Authentication settings, enable the Phone provider and configure a supported SMS provider.
+3. Configure the allowed site URL and redirect URLs for the deployed site and local development.
+4. Test sign-up, SMS verification, sign-in, and sign-out with a real test number.
+
+The frontend uses only the public publishable key. Never place a Supabase secret or `service_role` key in browser code.
+
+### Database
+
+The project database includes tables for:
+- `profiles`, `driver_profiles`, and `vehicles`
+- `saved_places`, `rides`, `ride_offers`, and `ride_events`
+- `payments`, `ratings`
+- `conversations`, `messages`, `notifications`, and `support_tickets`
+
+Row Level Security is enabled on all 13 application tables. Security advisor checks were clear after setup. Performance advisor checks were also reviewed; foreign-key indexes were added and duplicate ride-read policies consolidated. This is a first backend foundation, not a production launch certification: driver approval, atomic ride acceptance/state transitions, payment-provider integration, rate limiting, and end-to-end tests remain follow-up tasks.
 
 ## Files
 
 - `index.html` — welcome and authentication entry UI
 - `styles.css` — responsive mobile-first styling
-- `app.js` — navigation, Arabic/French labels, and demo-only form validation
-- `assets/mercob-mark.svg` — initial editable vector mark inspired by the M/location-pin concept
+- `app.js` — navigation, Arabic/French labels, and form UI
+- `supabase-client.js` — public Supabase client configuration
+- `auth-integration.js` — phone sign-up/sign-in and SMS OTP flow
+- `assets/mercob-mark.svg` — editable vector mark inspired by the M/location-pin concept
