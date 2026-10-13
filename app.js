@@ -9,15 +9,15 @@ const translations = {
     authSubtitle:"اختر الطريقة المناسبة لك للمتابعة.", login:"تسجيل الدخول",
     loginHint:"لديك حساب بالفعل؟ تابع من هنا.", createAccount:"إنشاء حساب جديد",
     signupHint:"ابدأ رحلتك مع MERCOB في خطوات بسيطة.", chooseAnother:"اختيار طريقة أخرى",
-    identifierLabel:"البريد الإلكتروني أو رقم الهاتف", passwordLabel:"كلمة المرور",
+    identifierLabel:"البريد الإلكتروني", passwordLabel:"كلمة المرور",
     fullNameLabel:"الاسم الكامل", birthDateLabel:"تاريخ الميلاد", showPassword:"إظهار", hidePassword:"إخفاء",
     acceptTerms:"أوافق على شروط الاستخدام وسياسة الخصوصية.",
-    demoNote:"تسجيل الدخول عبر البريد أو الهاتف وكلمة المرور دون رمز SMS.",
+    demoNote:"تسجيل الدخول بالبريد الإلكتروني وكلمة المرور فقط.",
     supportLine:"خطوتك الأولى نحو مشوار أسهل.", loginTitle:"تسجيل الدخول",
-    signupTitle:"إنشاء حساب", loginIntro:"أدخل بريدك الإلكتروني أو رقم هاتفك وكلمة المرور.",
-    signupIntro:"أدخل اسمك الكامل وتاريخ ميلادك، ثم بريدك أو هاتفك وكلمة المرور.",
+    signupTitle:"إنشاء حساب", loginIntro:"أدخل بريدك الإلكتروني وكلمة المرور.",
+    signupIntro:"أدخل اسمك الكامل وتاريخ ميلادك وبريدك الإلكتروني وكلمة المرور.",
     loginSubmit:"تسجيل الدخول", signupSubmit:"إنشاء حساب",
-    identifierError:"أدخل بريدًا إلكترونيًا صحيحًا أو رقم هاتف جزائريًا صالحًا.",
+    identifierError:"أدخل بريدًا إلكترونيًا صحيحًا.",
     passwordError:"يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.",
     fullNameError:"أدخل الاسم الكامل (3 أحرف على الأقل).",
     birthDateError:"أدخل تاريخ ميلاد صحيحًا ليس في المستقبل.",
@@ -41,15 +41,15 @@ const translations = {
     authSubtitle:"Choisissez une option pour continuer.", login:"Se connecter",
     loginHint:"Vous avez déjà un compte ? Continuez ici.", createAccount:"Créer un compte",
     signupHint:"Commencez avec MERCOB en quelques étapes simples.", chooseAnother:"Choisir une autre option",
-    identifierLabel:"E-mail ou numéro de téléphone", passwordLabel:"Mot de passe",
+    identifierLabel:"Adresse e-mail", passwordLabel:"Mot de passe",
     fullNameLabel:"Nom complet", birthDateLabel:"Date de naissance", showPassword:"Afficher", hidePassword:"Masquer",
     acceptTerms:"J’accepte les conditions d’utilisation et la politique de confidentialité.",
-    demoNote:"Connexion par e-mail ou téléphone et mot de passe, sans code SMS.",
+    demoNote:"Connexion par adresse e-mail et mot de passe uniquement.",
     supportLine:"Le premier pas vers un trajet plus simple.", loginTitle:"Se connecter",
-    signupTitle:"Créer un compte", loginIntro:"Saisissez votre e-mail ou téléphone et votre mot de passe.",
-    signupIntro:"Saisissez votre nom complet, votre date de naissance, puis votre e-mail ou téléphone et un mot de passe.",
+    signupTitle:"Créer un compte", loginIntro:"Saisissez votre adresse e-mail et votre mot de passe.",
+    signupIntro:"Saisissez votre nom complet, votre date de naissance, votre adresse e-mail et un mot de passe.",
     loginSubmit:"Se connecter", signupSubmit:"Créer mon compte",
-    identifierError:"Saisissez un e-mail valide ou un numéro algérien valide.",
+    identifierError:"Saisissez une adresse e-mail valide.",
     passwordError:"Le mot de passe doit contenir au moins 8 caractères.",
     fullNameError:"Saisissez votre nom complet (au moins 3 caractères).",
     birthDateError:"Saisissez une date de naissance valide qui n’est pas dans le futur.",
@@ -72,7 +72,7 @@ function applyLanguage(){
  document.documentElement.lang=language;document.documentElement.dir=language==="ar"?"rtl":"ltr";
  $("languageSwitch").innerHTML=language==="ar"?'عربي <span aria-hidden="true">⌄</span>':'Français <span aria-hidden="true">⌄</span>';
  document.querySelectorAll("[data-i18n]").forEach(node=>{const key=node.dataset.i18n;if(translations[language][key])node.innerHTML=translations[language][key];});
- $("identifier").placeholder=language==="ar"?"name@example.com أو 0555123456":"nom@exemple.com ou 0555123456";
+ $("identifier").placeholder=language==="ar"?"name@example.com":"nom@exemple.com";
  updateFormCopy();
 }
 function showAuth(){welcomeScreen.hidden=true;authScreen.hidden=false;authScreen.classList.add("is-active");authOptions.hidden=false;authForm.hidden=true;window.scrollTo({top:0,behavior:"smooth"});}
@@ -95,10 +95,6 @@ function updateFormCopy(){
 function normalizeIdentifier(value){
  const v=String(value||"").trim();
  if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))return {type:"email",value:v.toLowerCase()};
- let digits=v.replace(/\D/g,"");
- if(digits.startsWith("00213"))digits=digits.slice(5);else if(digits.startsWith("213"))digits=digits.slice(3);
- if(digits.startsWith("0"))digits=digits.slice(1);
- if(/^[5-7]\d{8}$/.test(digits))return {type:"phone",value:"+213"+digits};
  return null;
 }
 function validBirthDate(value){
@@ -133,26 +129,21 @@ $("authForm").addEventListener("submit",async event=>{
  try{
   if(authMode==="signup"){
    const options={data:{account_type:"rider",full_name:fullName,birth_date:birthDate,preferred_language:language}};
-   let data,error;
-   if(identifier.type==="email")({data,error}=await client.auth.signUp({email:identifier.value,password,options}));
-   else ({data,error}=await client.auth.signUp({phone:identifier.value,password,options}));
+   const {data,error}=await client.auth.signUp({email:identifier.value,password,options});
    if(error)throw error;
    if(!data.session){
-    showMessage(identifier.type==="email"?t("emailConfirm"):t("signupError"));
+    showMessage(t("emailConfirm"));
     return;
    }
    announceSignedIn(data.user);success=true;showWelcome();
   }else{
-   const credentials=identifier.type==="email"?{email:identifier.value,password}:{phone:identifier.value,password};
-   const {data,error}=await client.auth.signInWithPassword(credentials);if(error)throw error;
+   const {data,error}=await client.auth.signInWithPassword({email:identifier.value,password});if(error)throw error;
    announceSignedIn(data.user);success=true;showWelcome();
   }
  }catch(error){
   console.error("MERCOB Supabase auth error:",error);
   const msg=String(error?.message||"").toLowerCase();
-  if(msg.includes("phone signups are disabled")||msg.includes("phone_provider_disabled")){
-    showMessage(language==="ar"?"تسجيل الهاتف معطّل في Supabase. فعّل Phone ضمن Authentication → Sign In / Providers، ثم عطّل Confirm phone للسماح بالدخول دون SMS.":"L’inscription par téléphone est désactivée dans Supabase. Activez Phone dans Authentication → Sign In / Providers, puis désactivez Confirm phone pour autoriser la connexion sans SMS.");
-  }else if(msg.includes("email not confirmed")||msg.includes("confirm")||msg.includes("confirmation")){
+  if(msg.includes("email not confirmed")||msg.includes("confirm")||msg.includes("confirmation")){
     showMessage(t("emailConfirm"));
   }else{
     showMessage((authMode==="signup"?t("signupError"):t("loginError"))+" ("+String(error?.message||"Unknown error")+")");
