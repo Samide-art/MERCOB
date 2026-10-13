@@ -115,3 +115,25 @@ h1, h2, p { margin-top: 0; }
 html[dir="ltr"] body { font-family: "Cairo", sans-serif; }
 html[dir="ltr"] .button-arrow, html[dir="ltr"] .option-chevron { transform: rotate(180deg); }
 html[dir="ltr"] .country-code { border-right: 0; border-left: 1px solid #E5E7EB; }
+
+
+/* MERCOB account fields */
+.text-field {
+  display: block;
+  width: 100%;
+  min-height: 50px;
+  padding: 0 13px;
+  border: 1px solid #E0E4EA;
+  border-radius: 14px;
+  outline: 0;
+  color: var(--navy);
+  background: #fff;
+  font-size: 14px;
+  direction: ltr;
+  text-align: left;
+}
+html[dir="rtl"] .text-field { direction: ltr; text-align: left; }
+.text-field:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,96,0,.08); }
+.signup-only[hidden], #termsRow[hidden] { display: none !important; }
+#signupFields { margin-bottom: 4px; }
+#signupFields .field-label { margin-top: 12px; }

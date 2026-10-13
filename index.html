@@ -91,14 +91,17 @@
         <button class="form-back" id="formBack" type="button"><span aria-hidden="true">→</span><span data-i18n="chooseAnother">اختيار طريقة أخرى</span></button>
         <h2 id="formTitle">تسجيل الدخول</h2>
         <p class="form-intro" id="formIntro">أدخل بياناتك للمتابعة.</p>
-        <label class="field-label" for="phone" data-i18n="phoneLabel">رقم الهاتف</label>
-        <div class="phone-field" dir="ltr">
-          <span class="country-code">+213</span>
-          <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="555 12 34 56" maxlength="15" required>
+        <div class="signup-only" id="signupFields" hidden>
+          <label class="field-label" for="fullName" data-i18n="fullNameLabel">الاسم الكامل</label>
+          <input class="text-field" id="fullName" name="full_name" type="text" autocomplete="name" maxlength="120" placeholder="الاسم واللقب">
+          <label class="field-label" for="birthDate" data-i18n="birthDateLabel">تاريخ الميلاد</label>
+          <input class="text-field" id="birthDate" name="birth_date" type="date" autocomplete="bday">
         </div>
+        <label class="field-label" for="identifier" data-i18n="identifierLabel">البريد الإلكتروني أو رقم الهاتف</label>
+        <input class="text-field" id="identifier" name="identifier" type="text" inputmode="email" autocomplete="username" placeholder="name@example.com أو 0555123456" maxlength="254">
         <label class="field-label" for="password" data-i18n="passwordLabel">كلمة المرور</label>
         <div class="password-field">
-          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="••••••••" minlength="6" required>
+          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="••••••••" minlength="8">
           <button type="button" id="togglePassword" class="toggle-password" data-i18n="showPassword">إظهار</button>
         </div>
         <label class="remember-row" id="termsRow" hidden><input id="terms" type="checkbox"><span data-i18n="acceptTerms">أوافق على شروط الاستخدام وسياسة الخصوصية.</span></label>
@@ -111,7 +114,6 @@
     </section>
   </main>
   <script src="./app.js"></script>
-  <script type="module" src="./auth-integration.js"></script>
   <script type="module" src="./supabase-client.js"></script>
 </body>
 </html>
