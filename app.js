@@ -68,7 +68,7 @@ const translations = {
 };
 let language="ar", authMode="login";
 const $=id=>document.getElementById(id);
-const welcomeScreen=$("welcomeScreen"), authScreen=$("authScreen"), authOptions=$("authOptions"), authForm=$("authForm"), formMessage=$("formMessage");
+const welcomeScreen=$("welcomeScreen"), authScreen=$("authScreen"), homeScreen=$("homeScreen"), authOptions=$("authOptions"), authForm=$("authForm"), formMessage=$("formMessage");
 const t=key=>translations[language][key]||translations.ar[key]||key;
 const supabaseClient=()=>window.mercobSupabase||null;
 function showMessage(message,success=false){formMessage.textContent=message;formMessage.classList.toggle("success",success);}
@@ -79,8 +79,27 @@ function applyLanguage(){
  $("identifier").placeholder=language==="ar"?"name@example.com":"nom@exemple.com";
  updateFormCopy();
 }
-function showAuth(){welcomeScreen.hidden=true;authScreen.hidden=false;authScreen.classList.add("is-active");authOptions.hidden=false;authForm.hidden=true;window.scrollTo({top:0,behavior:"smooth"});}
-function showWelcome(){authScreen.hidden=true;welcomeScreen.hidden=false;welcomeScreen.classList.add("is-active");window.scrollTo({top:0,behavior:"smooth"});}
+function showAuth(){if(homeScreen)homeScreen.hidden=true;welcomeScreen.hidden=true;authScreen.hidden=false;authScreen.classList.add("is-active");authOptions.hidden=false;authForm.hidden=true;window.scrollTo({top:0,behavior:"smooth"});}
+function showWelcome(){if(homeScreen)homeScreen.hidden=true;authScreen.hidden=true;welcomeScreen.hidden=false;welcomeScreen.classList.add("is-active");window.scrollTo({top:0,behavior:"smooth"});}
+function showDashboard(user){
+ if(!homeScreen){showWelcome();return;}
+ welcomeScreen.hidden=true;authScreen.hidden=true;homeScreen.hidden=false;homeScreen.classList.add("is-active");
+ const meta=user?.user_metadata||{};$("homeUserName").textContent=meta.full_name||meta.name||(user?.email?user.email.split("@")[0]:"");
+ loadDashboard(user);window.scrollTo({top:0,behavior:"smooth"});
+}
+async function loadDashboard(user){
+ const client=supabaseClient();if(!client||!user?.id)return;
+ try{
+  const {data:profile}=await client.from("profiles").select("full_name").eq("id",user.id).maybeSingle();
+  if(profile?.full_name)$("homeUserName").textContent=profile.full_name;
+  const {data,error}=await client.from("rides").select("id,pickup_address,destination_address,requested_price,agreed_price,status").eq("rider_id",user.id).order("created_at",{ascending:false}).limit(4);
+  if(error)throw error;$("rideCount").textContent=String(data?.length||0);
+  if(!data?.length)return;
+  const statuses={requested:"قيد البحث عن سائق",offered:"توجد عروض",accepted:"تم قبول الطلب",driver_arriving:"السائق في الطريق",in_progress:"المشوار جارٍ",completed:"مكتمل",cancelled:"ملغي"};
+  $("recentRides").innerHTML=data.map(r=>'<article class="ride-item"><div class="ride-item-icon">↗</div><div class="ride-item-main"><strong>'+escapeHtml(r.destination_address)+'</strong><p>'+escapeHtml(r.pickup_address)+'</p><span class="ride-status">'+(statuses[r.status]||escapeHtml(r.status))+'</span></div><div class="ride-item-price">'+Number(r.agreed_price||r.requested_price||0).toLocaleString('fr-DZ')+' <small>دج</small></div></article>').join("");
+ }catch(e){console.warn("MERCOB dashboard data:",e);}
+}
+function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));}
 function chooseMode(mode){
  authMode=mode;authOptions.hidden=true;authForm.hidden=false;
  $("identifier").value="";$("password").value="";$("fullName").value="";$("birthDate").value="";$("terms").checked=false;
@@ -113,7 +132,20 @@ $("backButton").addEventListener("click",showWelcome);
 $("formBack").addEventListener("click",()=>{authForm.hidden=true;authOptions.hidden=false;showMessage("");});
 $("loginChoice").addEventListener("click",()=>chooseMode("login"));
 $("signupChoice").addEventListener("click",()=>chooseMode("signup"));
-$("languageSwitch").addEventListener("click",()=>{language=language==="ar"?"fr":"ar";applyLanguage();});
+$("languageSwitch").addEventListener("click",()=>{language=language==="ar"?"fr":"ar";
+$("logoutButton").addEventListener("click",async()=>{const c=supabaseClient();if(!c)return;const {error}=await c.auth.signOut();if(error){console.error(error);return;}showWelcome();});
+$("rideRequestForm").addEventListener("submit",async e=>{
+ e.preventDefault();const c=supabaseClient(),msg=$("rideRequestMessage"),btn=$("requestRideButton");msg.classList.remove("success");
+ const {data:{user}}=await c.auth.getUser();if(!user){msg.textContent=t("authNotReady");return;}
+ const pickup=$("pickupAddress").value.trim(),destination=$("destinationAddress").value.trim(),price=Number($("requestedPrice").value);
+ if(!pickup||!destination||!Number.isFinite(price)||price<=0){msg.textContent="أدخل نقطة الانطلاق والوجهة وسعرًا صحيحًا.";return;}
+ btn.disabled=true;
+ try{const {error}=await c.from("rides").insert({rider_id:user.id,pickup_address:pickup,destination_address:destination,requested_price:price,currency:"DZD",ride_type:$("rideType").value,payment_method:"cash"});
+ if(error)throw error;msg.textContent="تم إرسال طلبك بنجاح.";msg.classList.add("success");$("rideRequestForm").reset();await loadDashboard(user);
+ }catch(error){console.error("Ride request failed:",error);msg.textContent="تعذر إرسال الطلب. "+(error?.message||"تحقق من صلاحيات قاعدة البيانات.");}finally{btn.disabled=false;}
+});
+
+applyLanguage();});
 document.querySelector("[data-home]").addEventListener("click",event=>{event.preventDefault();showWelcome();});
 $("togglePassword").addEventListener("click",()=>{const input=$("password");input.type=input.type==="password"?"text":"password";updateFormCopy();});
 $("authForm").addEventListener("submit",async event=>{
@@ -139,7 +171,7 @@ $("authForm").addEventListener("submit",async event=>{
     showMessage(t("confirmationRequired"),true);
     return;
    }
-   announceSignedIn(data.user);success=true;showWelcome();
+   announceSignedIn(data.user);success=true;showDashboard(data.user);
   }else{
    const {data,error}=await client.auth.signInWithPassword({email:identifier.value,password});if(error)throw error;
    announceSignedIn(data.user);success=true;showWelcome();
@@ -158,10 +190,10 @@ $("authForm").addEventListener("submit",async event=>{
 });
 window.addEventListener("mercob-supabase-ready",async()=>{
  const client=supabaseClient();if(!client)return;
- const {data}=await client.auth.getSession();if(data.session)document.dispatchEvent(new CustomEvent("mercob:authenticated",{detail:{user:data.session.user}}));
+ const {data}=await client.auth.getSession();if(data.session){document.dispatchEvent(new CustomEvent("mercob:authenticated",{detail:{user:data.session.user}}));showDashboard(data.session.user);}
  client.auth.onAuthStateChange((event,session)=>{
-  if(event==="SIGNED_OUT")document.dispatchEvent(new CustomEvent("mercob:signed-out"));
-  if(event==="SIGNED_IN"&&session)document.dispatchEvent(new CustomEvent("mercob:authenticated",{detail:{user:session.user}}));
+  if(event==="SIGNED_OUT"){document.dispatchEvent(new CustomEvent("mercob:signed-out"));showWelcome();}
+  if((event==="SIGNED_IN"||event==="INITIAL_SESSION")&&session){document.dispatchEvent(new CustomEvent("mercob:authenticated",{detail:{user:session.user}}));showDashboard(session.user);}
  });
 });
 applyLanguage();
