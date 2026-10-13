@@ -57,7 +57,7 @@ const translations = {
     authNotReady:"Connexion sécurisée indisponible. Actualisez la page et réessayez.",
     signupSuccess:"Compte créé avec succès.",
     emailConfirm:"Pour créer un compte sans lien de confirmation, désactivez Confirm email dans les paramètres Supabase Auth.",
-    phoneConfirm:"Pour créer un compte sans SMS, désactivez Confirm phone dans les paramètres Supabase Auth."
+    phoneConfirm:"Pour créer un compte sans SMS, désactivez Confirm phone dans les paramètres Supabase Auth.",
     loginSuccess:"Connexion réussie.", signupError:"Inscription impossible. Vérifiez les données et Supabase.",
     loginError:"Connexion impossible. Vérifiez vos identifiants.", signedIn:"Vous êtes connecté."
   }
