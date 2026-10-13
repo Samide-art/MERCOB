@@ -112,6 +112,22 @@
 
       <div class="auth-footer"><span class="footer-dot"></span><span data-i18n="supportLine">خطوتك الأولى نحو مشوار أسهل.</span></div>
     </section>
+<section class="screen home-screen" id="homeScreen" hidden>
+  <div class="home-welcome"><div><p class="home-kicker">مساحتك في MERCOB</p><h1>مرحبًا <span id="homeUserName"></span></h1><p class="home-subtitle">إلى أين تريد الذهاب اليوم؟</p></div><div class="home-avatar">م</div></div>
+  <div class="home-hero"><div><span class="home-badge">● جاهز لمشوارك القادم</span><h2>مشوارك يبدأ من هنا</h2><p>حدد نقطة الانطلاق والوجهة، وابدأ طلبك بسهولة.</p></div><div class="home-route-icon">↗</div></div>
+  <form id="rideRequestForm" class="ride-request-card">
+    <div class="section-heading"><div><p class="home-section-kicker">طلب سريع</p><h2>اطلب مشوارًا</h2></div><span class="home-step">01</span></div>
+    <label class="field-label" for="pickupAddress">نقطة الانطلاق</label><input class="text-field home-input" id="pickupAddress" required maxlength="240" placeholder="أين نلتقي؟">
+    <label class="field-label" for="destinationAddress">الوجهة</label><input class="text-field home-input" id="destinationAddress" required maxlength="240" placeholder="إلى أين تذهب؟">
+    <div class="home-form-row"><div><label class="field-label" for="requestedPrice">السعر المقترح (دج)</label><input class="text-field home-input" id="requestedPrice" type="number" min="1" step="1" required placeholder="مثال: 500"></div>
+    <div><label class="field-label" for="rideType">نوع الخدمة</label><select class="text-field home-input" id="rideType"><option value="standard">عادي</option><option value="comfort">مريح</option><option value="van">سيارة كبيرة</option><option value="delivery">توصيل</option></select></div></div>
+    <p class="form-message" id="rideRequestMessage" role="status" aria-live="polite"></p><button class="button button-primary" id="requestRideButton" type="submit">إرسال طلب المشوار <span class="button-arrow">←</span></button>
+    <p class="home-small-note">السعر المقترح بالدينار الجزائري، ويمكن أن يتغير حسب الاتفاق.</p>
+  </form>
+  <div class="home-section-title"><div><p class="home-section-kicker">نشاطك</p><h2>آخر الطلبات</h2></div><span class="activity-count" id="rideCount">0</span></div>
+  <div class="recent-rides" id="recentRides"><div class="empty-rides"><span class="empty-rides-icon">↗</span><strong>لا توجد طلبات بعد</strong><p>ستظهر طلباتك هنا بعد إرسال أول طلب.</p></div></div>
+  <button class="button button-quiet home-logout" id="logoutButton" type="button">تسجيل الخروج</button>
+</section>
   </main>
   <script src="./app.js"></script>
   <script type="module" src="./supabase-client.js"></script>
