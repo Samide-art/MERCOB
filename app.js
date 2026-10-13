@@ -31,7 +31,7 @@ const translations = {
     signupError:"تعذّر إنشاء الحساب. تحقق من البيانات وإعدادات Supabase.",
     signupDisabled:"تسجيل البريد الإلكتروني معطّل في Supabase. فعّل Email signups من Authentication ← Sign In / Providers ← Email ثم احفظ التغييرات.",
     loginError:"تعذّر تسجيل الدخول. تحقق من بياناتك.",
-    signedIn:"أنت مسجل الدخول الآن."
+    signedIn:"أنت مسجل الدخول الآن.", pickupSection:"نقطة الانطلاق", destinationSection:"الوجهة", wilayaLabel:"الولاية", communeLabel:"البلدية", neighborhoodLabel:"الحي / الشارع (اختياري)", chooseWilaya:"اختر الولاية", communePlaceholder:"اختر أو اكتب اسم البلدية", neighborhoodPlaceholder:"اكتب اسم الحي أو الشارع"
   },
   fr: {
     langLabel:"Français", fast:"Rapide et simple", yourChoice:"À votre choix", eyebrow:"Déplacez-vous avec MERCOB",
@@ -63,7 +63,7 @@ const translations = {
     phoneConfirm:"Pour créer un compte sans SMS, désactivez Confirm phone dans les paramètres Supabase Auth.",
     loginSuccess:"Connexion réussie.", signupError:"Inscription impossible. Vérifiez les données et Supabase.",
     signupDisabled:"Les inscriptions par e-mail sont désactivées dans Supabase. Activez Email signups dans Authentication ← Sign In / Providers ← Email, puis enregistrez les changements.",
-    loginError:"Connexion impossible. Vérifiez vos identifiants.", signedIn:"Vous êtes connecté."
+    loginError:"Connexion impossible. Vérifiez vos identifiants.", signedIn:"Vous êtes connecté.", pickupSection:"Point de départ", destinationSection:"Destination", wilayaLabel:"Wilaya", communeLabel:"Commune", neighborhoodLabel:"Quartier / rue (facultatif)", chooseWilaya:"Choisir la wilaya", communePlaceholder:"Choisissez ou saisissez une commune", neighborhoodPlaceholder:"Saisissez le quartier ou la rue"
   }
 };
 let language="ar", authMode="login";
@@ -132,20 +132,60 @@ $("backButton").addEventListener("click",showWelcome);
 $("formBack").addEventListener("click",()=>{authForm.hidden=true;authOptions.hidden=false;showMessage("");});
 $("loginChoice").addEventListener("click",()=>chooseMode("login"));
 $("signupChoice").addEventListener("click",()=>chooseMode("signup"));
-$("languageSwitch").addEventListener("click",()=>{language=language==="ar"?"fr":"ar";
-$("logoutButton").addEventListener("click",async()=>{const c=supabaseClient();if(!c)return;const {error}=await c.auth.signOut();if(error){console.error(error);return;}showWelcome();});
-$("rideRequestForm").addEventListener("submit",async e=>{
- e.preventDefault();const c=supabaseClient(),msg=$("rideRequestMessage"),btn=$("requestRideButton");msg.classList.remove("success");
- const {data:{user}}=await c.auth.getUser();if(!user){msg.textContent=t("authNotReady");return;}
- const pickup=$("pickupAddress").value.trim(),destination=$("destinationAddress").value.trim(),price=Number($("requestedPrice").value);
- if(!pickup||!destination||!Number.isFinite(price)||price<=0){msg.textContent="أدخل نقطة الانطلاق والوجهة وسعرًا صحيحًا.";return;}
- btn.disabled=true;
- try{const {error}=await c.from("rides").insert({rider_id:user.id,pickup_address:pickup,destination_address:destination,requested_price:price,currency:"DZD",ride_type:$("rideType").value,payment_method:"cash"});
- if(error)throw error;msg.textContent="تم إرسال طلبك بنجاح.";msg.classList.add("success");$("rideRequestForm").reset();await loadDashboard(user);
- }catch(error){console.error("Ride request failed:",error);msg.textContent="تعذر إرسال الطلب. "+(error?.message||"تحقق من صلاحيات قاعدة البيانات.");}finally{btn.disabled=false;}
+$("languageSwitch").addEventListener("click",()=>{language=language==="ar"?"fr":"ar";applyLanguage();});
+const FALLBACK_WILAYAS = [
+{code:"01",ar:"أدرار",fr:"Adrar"},{code:"02",ar:"الشلف",fr:"Chlef"},{code:"03",ar:"الأغواط",fr:"Laghouat"},{code:"04",ar:"أم البواقي",fr:"Oum El Bouaghi"},{code:"05",ar:"باتنة",fr:"Batna"},{code:"06",ar:"بجاية",fr:"Béjaïa"},{code:"07",ar:"بسكرة",fr:"Biskra"},{code:"08",ar:"بشار",fr:"Béchar"},{code:"09",ar:"البليدة",fr:"Blida"},{code:"10",ar:"البويرة",fr:"Bouira"},{code:"11",ar:"تمنراست",fr:"Tamanrasset"},{code:"12",ar:"تبسة",fr:"Tébessa"},{code:"13",ar:"تلمسان",fr:"Tlemcen"},{code:"14",ar:"تيارت",fr:"Tiaret"},{code:"15",ar:"تيزي وزو",fr:"Tizi Ouzou"},{code:"16",ar:"الجزائر",fr:"Alger"},{code:"17",ar:"الجلفة",fr:"Djelfa"},{code:"18",ar:"جيجل",fr:"Jijel"},{code:"19",ar:"سطيف",fr:"Sétif"},{code:"20",ar:"سعيدة",fr:"Saïda"},{code:"21",ar:"سكيكدة",fr:"Skikda"},{code:"22",ar:"سيدي بلعباس",fr:"Sidi Bel Abbès"},{code:"23",ar:"عنابة",fr:"Annaba"},{code:"24",ar:"قالمة",fr:"Guelma"},{code:"25",ar:"قسنطينة",fr:"Constantine"},{code:"26",ar:"المدية",fr:"Médéa"},{code:"27",ar:"مستغانم",fr:"Mostaganem"},{code:"28",ar:"المسيلة",fr:"M'Sila"},{code:"29",ar:"معسكر",fr:"Mascara"},{code:"30",ar:"ورقلة",fr:"Ouargla"},{code:"31",ar:"وهران",fr:"Oran"},{code:"32",ar:"البيض",fr:"El Bayadh"},{code:"33",ar:"إليزي",fr:"Illizi"},{code:"34",ar:"برج بوعريريج",fr:"Bordj Bou Arréridj"},{code:"35",ar:"بومرداس",fr:"Boumerdès"},{code:"36",ar:"الطارف",fr:"El Tarf"},{code:"37",ar:"تندوف",fr:"Tindouf"},{code:"38",ar:"تيسمسيلت",fr:"Tissemsilt"},{code:"39",ar:"الوادي",fr:"El Oued"},{code:"40",ar:"خنشلة",fr:"Khenchela"},{code:"41",ar:"سوق أهراس",fr:"Souk Ahras"},{code:"42",ar:"تيبازة",fr:"Tipaza"},{code:"43",ar:"ميلة",fr:"Mila"},{code:"44",ar:"عين الدفلى",fr:"Aïn Defla"},{code:"45",ar:"النعامة",fr:"Naâma"},{code:"46",ar:"عين تموشنت",fr:"Aïn Témouchent"},{code:"47",ar:"غرداية",fr:"Ghardaïa"},{code:"48",ar:"غليزان",fr:"Relizane"},{code:"49",ar:"تيميمون",fr:"Timimoun"},{code:"50",ar:"برج باجي مختار",fr:"Bordj Badji Mokhtar"},{code:"51",ar:"أولاد جلال",fr:"Ouled Djellal"},{code:"52",ar:"بني عباس",fr:"Béni Abbès"},{code:"53",ar:"عين صالح",fr:"In Salah"},{code:"54",ar:"عين قزام",fr:"In Guezzam"},{code:"55",ar:"تقرت",fr:"Touggourt"},{code:"56",ar:"جانت",fr:"Djanet"},{code:"57",ar:"المغير",fr:"El M'Ghair"},{code:"58",ar:"المنيعة",fr:"El Meniaa"}
+];
+let algeriaLocationData=null;
+async function loadLocationData(){
+ try{const response=await fetch("https://raw.githubusercontent.com/el-amin-dev/algeria-wilayas-communes/main/data/algeria.json",{cache:"force-cache"});if(!response.ok)throw new Error("HTTP "+response.status);algeriaLocationData=await response.json();}
+ catch(error){console.warn("Location dataset unavailable; using built-in wilaya fallback.",error);}
+ document.querySelectorAll(".location-wilaya").forEach(select=>{
+  const previous=select.value;select.innerHTML='<option value="">'+escapeHtml(t("chooseWilaya"))+'</option>';
+  const list=algeriaLocationData?.wilayas?.map(w=>({code:w.code,ar:w.nom_ar,fr:w.nom_fr}))||FALLBACK_WILAYAS;
+  list.forEach(w=>{const option=document.createElement("option");option.value=w.code;option.textContent=(language==="fr"?w.fr:w.ar)||w.fr||w.ar;select.appendChild(option);});if(previous)select.value=previous;
+ });
+ refreshCommuneLists();
+}
+function communesForWilaya(code){
+ const w=algeriaLocationData?.wilayas?.find(item=>String(item.code)===String(code)||String(item.wilaya_num)===String(code));
+ if(!w)return [];
+ const names=[];(w.dairas||[]).forEach(d=>(d.communes||[]).forEach(c=>{const name=(language==="fr"?c.nom_fr:c.nom_ar)||c.nom_fr||c.nom_ar;if(name&&!names.includes(name))names.push(name);}));
+ return names.sort((a,b)=>a.localeCompare(b,language==="fr"?"fr":"ar"));
+}
+function refreshCommuneLists(){
+ [["pickupWilaya","pickupCommuneOptions","pickupCommune"],["destinationWilaya","destinationCommuneOptions","destinationCommune"]].forEach(([wilayaId,listId,inputId])=>{
+  const select=$(wilayaId),list=$(listId),input=$(inputId);if(!select||!list||!input)return;
+  list.innerHTML="";communesForWilaya(select.value).forEach(name=>{const option=document.createElement("option");option.value=name;list.appendChild(option);});
+  input.disabled=!select.value;input.setAttribute("aria-label",t("communeLabel"));
+ });
+}
+$("pickupWilaya").addEventListener("change",()=>{$("pickupCommune").value="";refreshCommuneLists();});
+$("destinationWilaya").addEventListener("change",()=>{$("destinationCommune").value="";refreshCommuneLists();});
+$("logoutButton").addEventListener("click",async()=>{
+ const client=supabaseClient();if(!client)return;const button=$("logoutButton");button.disabled=true;
+ try{const {error}=await client.auth.signOut();if(error)throw error;showWelcome();}
+ catch(error){console.error("MERCOB sign out error:",error);$("rideRequestMessage").textContent=language==="ar"?"تعذر تسجيل الخروج. تحقق من الاتصال ثم حاول مجددًا.":"Déconnexion impossible. Vérifiez votre connexion puis réessayez.";}
+ finally{button.disabled=false;}
 });
-
-applyLanguage();});
+$("rideRequestForm").addEventListener("submit",async event=>{
+ event.preventDefault();const client=supabaseClient(),message=$("rideRequestMessage"),button=$("requestRideButton");message.classList.remove("success");
+ if(!client){message.textContent=t("authNotReady");return;}
+ const {data:{user},error:authError}=await client.auth.getUser();if(authError||!user){message.textContent=t("authNotReady");return;}
+ const pW=$("pickupWilaya"),dW=$("destinationWilaya"),pC=$("pickupCommune").value.trim(),dC=$("destinationCommune").value.trim(),pN=$("pickupNeighborhood").value.trim(),dN=$("destinationNeighborhood").value.trim(),price=Number($("requestedPrice").value);
+ if(!pW.value||!pC||!dW.value||!dC||!Number.isFinite(price)||price<=0){message.textContent=language==="ar"?"اختر ولاية واكتب البلدية للانطلاق والوجهة، ثم أدخل سعرًا صحيحًا.":"Choisissez les wilayas et saisissez les communes du départ et de la destination, puis un prix valide.";return;}
+ const pWilaya=pW.selectedOptions[0].textContent.trim(),dWilaya=dW.selectedOptions[0].textContent.trim();
+ const pickup=[pN,pC,pWilaya].filter(Boolean).join("، "),destination=[dN,dC,dWilaya].filter(Boolean).join("، ");
+ button.disabled=true;
+ try{
+  const {error}=await client.from("rides").insert({rider_id:user.id,pickup_address:pickup,destination_address:destination,requested_price:price,currency:"DZD",ride_type:$("rideType").value,payment_method:"cash"});
+  if(error)throw error;message.textContent=language==="ar"?"تم حفظ طلبك بنجاح.":"Votre demande a été enregistrée.";message.classList.add("success");
+  $("rideRequestForm").reset();refreshCommuneLists();await loadDashboard(user);
+ }catch(error){console.error("MERCOB ride request error:",error);message.textContent=(language==="ar"?"تعذر حفظ الطلب: ":"Impossible d’enregistrer la demande : ")+(error?.message||"");}
+ finally{button.disabled=false;}
+});
+loadLocationData();
+applyLanguage();
 document.querySelector("[data-home]").addEventListener("click",async event=>{event.preventDefault();const client=supabaseClient();if(client){const {data}=await client.auth.getSession();if(data.session){showDashboard(data.session.user);return;}}showWelcome();});
 $("togglePassword").addEventListener("click",()=>{const input=$("password");input.type=input.type==="password"?"text":"password";updateFormCopy();});
 $("authForm").addEventListener("submit",async event=>{
@@ -174,7 +214,7 @@ $("authForm").addEventListener("submit",async event=>{
    announceSignedIn(data.user);success=true;showDashboard(data.user);
   }else{
    const {data,error}=await client.auth.signInWithPassword({email:identifier.value,password});if(error)throw error;
-   announceSignedIn(data.user);success=true;showWelcome();
+   announceSignedIn(data.user);success=true;showDashboard(data.user);
   }
  }catch(error){
   console.error("MERCOB Supabase auth error:",error);
