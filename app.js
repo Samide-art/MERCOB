@@ -28,6 +28,7 @@ const translations = {
     phoneConfirm:"لإنشاء الحساب دون SMS، عطّل Confirm phone في إعدادات Supabase Auth.",
     loginSuccess:"تم تسجيل الدخول بنجاح.",
     signupError:"تعذّر إنشاء الحساب. تحقق من البيانات وإعدادات Supabase.",
+    signupDisabled:"تسجيل البريد الإلكتروني معطّل في Supabase. فعّل Email signups من Authentication ← Sign In / Providers ← Email ثم احفظ التغييرات.",
     loginError:"تعذّر تسجيل الدخول. تحقق من بياناتك.",
     signedIn:"أنت مسجل الدخول الآن."
   },
@@ -59,6 +60,7 @@ const translations = {
     emailConfirm:"Pour créer un compte sans lien de confirmation, désactivez Confirm email dans les paramètres Supabase Auth.",
     phoneConfirm:"Pour créer un compte sans SMS, désactivez Confirm phone dans les paramètres Supabase Auth.",
     loginSuccess:"Connexion réussie.", signupError:"Inscription impossible. Vérifiez les données et Supabase.",
+    signupDisabled:"Les inscriptions par e-mail sont désactivées dans Supabase. Activez Email signups dans Authentication ← Sign In / Providers ← Email, puis enregistrez les changements.",
     loginError:"Connexion impossible. Vérifiez vos identifiants.", signedIn:"Vous êtes connecté."
   }
 };
@@ -143,7 +145,9 @@ $("authForm").addEventListener("submit",async event=>{
  }catch(error){
   console.error("MERCOB Supabase auth error:",error);
   const msg=String(error?.message||"").toLowerCase();
-  if(msg.includes("email not confirmed")||msg.includes("confirm")||msg.includes("confirmation")){
+  if(msg.includes("email signups are disabled")||msg.includes("signups not allowed for this instance")){
+    showMessage(t("signupDisabled"));
+  }else if(msg.includes("email not confirmed")||msg.includes("confirm")||msg.includes("confirmation")){
     showMessage(t("emailConfirm"));
   }else{
     showMessage((authMode==="signup"?t("signupError"):t("loginError"))+" ("+String(error?.message||"Unknown error")+")");
