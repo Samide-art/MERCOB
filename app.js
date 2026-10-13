@@ -146,7 +146,7 @@ $("rideRequestForm").addEventListener("submit",async e=>{
 });
 
 applyLanguage();});
-document.querySelector("[data-home]").addEventListener("click",event=>{event.preventDefault();showWelcome();});
+document.querySelector("[data-home]").addEventListener("click",async event=>{event.preventDefault();const client=supabaseClient();if(client){const {data}=await client.auth.getSession();if(data.session){showDashboard(data.session.user);return;}}showWelcome();});
 $("togglePassword").addEventListener("click",()=>{const input=$("password");input.type=input.type==="password"?"text":"password";updateFormCopy();});
 $("authForm").addEventListener("submit",async event=>{
  event.preventDefault();showMessage("");
@@ -193,7 +193,7 @@ window.addEventListener("mercob-supabase-ready",async()=>{
  const {data}=await client.auth.getSession();if(data.session){document.dispatchEvent(new CustomEvent("mercob:authenticated",{detail:{user:data.session.user}}));showDashboard(data.session.user);}
  client.auth.onAuthStateChange((event,session)=>{
   if(event==="SIGNED_OUT"){document.dispatchEvent(new CustomEvent("mercob:signed-out"));showWelcome();}
-  if((event==="SIGNED_IN"||event==="INITIAL_SESSION")&&session){document.dispatchEvent(new CustomEvent("mercob:authenticated",{detail:{user:session.user}}));showDashboard(session.user);}
+  if((event==="SIGNED_IN"||event==="INITIAL_SESSION")&&session){document.dispatchEvent(new CustomEvent("mercob:authenticated",{detail:{user:session.user}}));setTimeout(()=>showDashboard(session.user),0);}
  });
 });
 applyLanguage();
