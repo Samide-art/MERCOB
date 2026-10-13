@@ -150,7 +150,13 @@ $("authForm").addEventListener("submit",async event=>{
  }catch(error){
   console.error("MERCOB Supabase auth error:",error);
   const msg=String(error?.message||"").toLowerCase();
-  showMessage(msg.includes("email not confirmed")||msg.includes("confirm")?t("emailConfirm"):(authMode==="signup"?t("signupError"):t("loginError")));
+  if(msg.includes("phone signups are disabled")||msg.includes("phone_provider_disabled")){
+    showMessage(language==="ar"?"تسجيل الهاتف معطّل في Supabase. فعّل Phone ضمن Authentication → Sign In / Providers، ثم عطّل Confirm phone للسماح بالدخول دون SMS.":"L’inscription par téléphone est désactivée dans Supabase. Activez Phone dans Authentication → Sign In / Providers, puis désactivez Confirm phone pour autoriser la connexion sans SMS.");
+  }else if(msg.includes("email not confirmed")||msg.includes("confirm")||msg.includes("confirmation")){
+    showMessage(t("emailConfirm"));
+  }else{
+    showMessage((authMode==="signup"?t("signupError"):t("loginError"))+" ("+String(error?.message||"Unknown error")+")");
+  }
  }finally{button.disabled=false;}
 });
 window.addEventListener("mercob-supabase-ready",async()=>{
