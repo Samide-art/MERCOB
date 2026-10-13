@@ -137,3 +137,8 @@ html[dir="rtl"] .text-field { direction: ltr; text-align: left; }
 .signup-only[hidden], #termsRow[hidden] { display: none !important; }
 #signupFields { margin-bottom: 4px; }
 #signupFields .field-label { margin-top: 12px; }
+
+/* Keep welcome actions clickable above decorative artwork */
+.welcome-actions { position: relative; z-index: 5; }
+.welcome-actions .button { position: relative; z-index: 6; pointer-events: auto; touch-action: manipulation; }
+.welcome-art { pointer-events: none; }
