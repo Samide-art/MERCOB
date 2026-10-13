@@ -141,11 +141,11 @@ $("authForm").addEventListener("submit",async event=>{
     showMessage(identifier.type==="email"?t("emailConfirm"):t("signupError"));
     return;
    }
-   announceSignedIn(data.user);showMessage(t("signupSuccess"),true);$("formIntro").textContent=t("signupSuccess");success=true;
+   announceSignedIn(data.user);success=true;showWelcome();
   }else{
    const credentials=identifier.type==="email"?{email:identifier.value,password}:{phone:identifier.value,password};
    const {data,error}=await client.auth.signInWithPassword(credentials);if(error)throw error;
-   announceSignedIn(data.user);showMessage(t("loginSuccess"),true);$("formIntro").textContent=t("signedIn");success=true;
+   announceSignedIn(data.user);success=true;showWelcome();
   }
  }catch(error){
   console.error("MERCOB Supabase auth error:",error);
