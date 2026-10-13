@@ -77,6 +77,9 @@ function applyLanguage(){
  $("languageSwitch").innerHTML=language==="ar"?'عربي <span aria-hidden="true">⌄</span>':'Français <span aria-hidden="true">⌄</span>';
  document.querySelectorAll("[data-i18n]").forEach(node=>{const key=node.dataset.i18n;if(translations[language][key])node.innerHTML=translations[language][key];});
  $("identifier").placeholder=language==="ar"?"name@example.com":"nom@exemple.com";
+ $("pickupCommune").placeholder=t("communePlaceholder");$("destinationCommune").placeholder=t("communePlaceholder");
+ $("pickupNeighborhood").placeholder=t("neighborhoodPlaceholder");$("destinationNeighborhood").placeholder=t("neighborhoodPlaceholder");
+ document.querySelectorAll(".location-wilaya").forEach(select=>{if(select.options.length)select.options[0].textContent=t("chooseWilaya");});
  updateFormCopy();
 }
 function showAuth(){if(homeScreen)homeScreen.hidden=true;welcomeScreen.hidden=true;authScreen.hidden=false;authScreen.classList.add("is-active");authOptions.hidden=false;authForm.hidden=true;window.scrollTo({top:0,behavior:"smooth"});}
