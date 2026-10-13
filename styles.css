@@ -155,3 +155,24 @@ html[dir="rtl"] .text-field { direction: ltr; text-align: left; }
 @media(max-width:380px){.home-form-row{grid-template-columns:1fr;gap:0}.home-welcome h1{font-size:24px}.home-hero{padding:15px}}
 
 .location-group{border:1px solid #E8EBF0;border-radius:16px;padding:13px 12px 14px;margin:12px 0;background:#FCFCFD;min-width:0}.location-group legend{padding:0 7px;font-size:13px;font-weight:800;color:var(--navy)}.location-group .field-label{display:block;margin-top:9px}.location-group .home-input{width:100%;box-sizing:border-box}.location-commune:disabled{opacity:.6;background:#F1F3F5}.home-logout:disabled{opacity:.65}
+
+/* Interactive pickup/destination map */
+.map-picker-card{background:#fff;border:1px solid #e7ebf0;border-radius:18px;padding:14px;margin:14px 0;box-shadow:0 8px 24px rgba(20,32,54,.05)}
+.map-picker-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.map-picker-heading strong{display:block;color:var(--navy);font-size:15px}
+.map-picker-heading p{margin:5px 0 0;color:var(--slate);font-size:12px;line-height:1.6}
+.map-location-button{border:1px solid #e1e7ef;background:#f7f9fc;color:var(--navy);border-radius:10px;padding:9px 11px;font:inherit;font-size:12px;white-space:nowrap;cursor:pointer}
+.map-selection-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.map-select-button{border:1px solid #e4e8ef;background:#f8fafc;color:#334155;border-radius:11px;padding:11px 8px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}
+.map-select-button.active{border-color:var(--orange,#f97316);background:#fff4ec;color:#b84a0a;box-shadow:inset 0 0 0 1px var(--orange,#f97316)}
+#rideMap{height:300px;width:100%;border-radius:13px;overflow:hidden;background:#edf1f5;z-index:0}
+#rideMap .leaflet-control-attribution{font-size:9px}
+.map-hint{margin:10px 1px 0;color:var(--slate);font-size:12px;line-height:1.6}
+.map-route-summary{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.map-route-summary>div{background:#f7f9fc;border-radius:10px;padding:9px;min-width:0}
+.map-route-summary strong,.map-route-summary span{display:block}
+.map-route-summary strong{font-size:11px;color:var(--navy);margin-bottom:4px}
+.map-route-summary span{font-size:11px;color:var(--slate);direction:ltr;text-align:right;overflow-wrap:anywhere}
+.map-route-summary>p{grid-column:1/-1;margin:0;color:var(--slate);font-size:11px}
+.map-unavailable{padding:18px;color:#7c2d12;font-size:13px}
+@media(max-width:420px){.map-picker-card{padding:10px}.map-picker-heading{align-items:flex-start;flex-direction:column}.map-location-button{width:100%}#rideMap{height:260px}}
