@@ -1,58 +1,38 @@
-# MERCOB — Mobile-first web starter
+# MERCOB — mobile-first web application
 
-The first iteration establishes the MERCOB visual language and two entry flows:
-- Welcome screen
-- Sign-in / create-account choice
-- Prototype phone + password forms
-- Arabic-first RTL with a French language switch
-- Responsive layout designed for small phones first
+MERCOB is an Arabic-first, responsive ride and delivery web-app prototype with a Supabase authentication connection.
+
+## Current entry flow
+- Welcome screen and account entry choices.
+- Email + password sign-in and sign-up only; phone-number authentication and SMS OTP are not part of the current UI.
+- Sign-up collects full name and date of birth.
+- Arabic RTL and French LTR interface.
+- Responsive mobile-first styling.
 
 ## Run locally
+Open `index.html` through a local static web server. The app imports Supabase JS v2 from `esm.sh`, so an internet connection is required.
 
-This is a static HTML/CSS/JavaScript prototype and requires no build step. Open `index.html` in a browser, or serve the folder with any static web server.
+## Supabase setup
+Project dashboard: https://supabase.com/dashboard/project/nzvvxajycmwfpalnjmdh
+Authentication provider settings: https://supabase.com/dashboard/project/nzvvxajycmwfpalnjmdh/auth/providers
 
-## Brand tokens
+For email/password registration to work:
+1. In Supabase Authentication → Sign In / Providers → Email, enable email sign-ups.
+2. If the desired experience is immediate sign-in without a confirmation email, turn off **Confirm email** and save. This reduces assurance that the user controls the address. If confirmation remains enabled, users must confirm their address before they can sign in.
+3. Set the correct Site URL and allowed redirect URLs under Authentication → URL Configuration if confirmation or recovery links are used.
+4. Test sign-up and sign-in with a fresh test email.
 
-- Vivid Orange: `#FF6000`
-- Warm Yellow: `#FFC107`
-- Night Navy: `#0B1B2E`
-- Mist Gray: `#F3F4F6`
-- Slate Gray: `#667085`
-- Success: `#168A5B`
-- Error: `#D92D20`
+The connected repository tools can update application files, but do not expose the Supabase Auth provider switches, so those dashboard settings must be changed in Supabase itself. The frontend displays a specific error when email sign-ups are disabled.
 
-Typography: Montserrat for the Latin wordmark; Cairo for Arabic interface text.
+## Public client key
+`supabase-client.js` contains the project URL and a public publishable key. Public publishable keys are intended for browser use; never put a secret or `service_role` key in frontend code. Database access must be protected by Row Level Security policies.
 
-## Supabase status
+## Database foundation
+The Supabase project contains the application tables for profiles, drivers, vehicles, saved places, rides, ride offers/events, payments, ratings, conversations, messages, notifications, and support tickets. This is a backend foundation, not a production launch certification. Before launch, validate all RLS policies, driver approval, atomic ride acceptance and status transitions, payment-provider integration, abuse/rate limiting, and end-to-end tests.
 
-The browser client is configured for the MERCOB Supabase project. Rider sign-in and sign-up use **email or Algerian phone number plus password**, without an SMS OTP screen. Sign-up collects full name and date of birth, and stores them in the user's profile metadata.
-
-**Required Auth dashboard configuration for the requested password-only flow:**
-1. Open the [MERCOB Supabase project](https://supabase.com/dashboard/project/nzvvxajycmwfpalnjmdh).
-2. In Authentication settings, turn off email confirmation if email registration must not require a confirmation link.
-3. Turn off phone confirmation if phone registration must not require an SMS code.
-4. Configure the project's site URL and allowed redirect URLs.
-5. Test both email and phone sign-up/sign-in with test accounts.
-
-The connected tools can update the database and repository, but cannot change the project's Auth confirmation switches directly. Until these two confirmation settings are changed in the dashboard, Supabase may withhold a session after sign-up. The frontend intentionally does not offer an OTP entry flow.
-
-The frontend uses only the public publishable key. Never put a Supabase secret or `service_role` key in browser code.
-
-## Database
-
-The project database includes tables for:
-- `profiles`, `driver_profiles`, and `vehicles`
-- `saved_places`, `rides`, `ride_offers`, and `ride_events`
-- `payments`, `ratings`
-- `conversations`, `messages`, `notifications`, and `support_tickets`
-
-Row Level Security is enabled on all 13 application tables. Security advisor checks were clear after setup. Performance advisor checks were also reviewed; foreign-key indexes were added and duplicate ride-read policies consolidated. This is a first backend foundation, not a production launch certification: driver approval, atomic ride acceptance/state transitions, payment-provider integration, rate limiting, and end-to-end tests remain follow-up tasks.
-
-## Files
-
-- `index.html` — welcome and authentication entry UI
-- `styles.css` — responsive mobile-first styling
-- `app.js` — navigation, Arabic/French labels, and form UI
-- `supabase-client.js` — public Supabase client configuration
-- `auth-integration.js` — phone sign-up/sign-in and SMS OTP flow
-- `assets/mercob-mark.svg` — editable vector mark inspired by the M/location-pin concept
+## Main files
+- `index.html` — welcome and authentication UI.
+- `styles.css` — responsive layout and styles.
+- `app.js` — navigation, Arabic/French translations, validation, and email/password auth.
+- `supabase-client.js` — browser Supabase client.
+- `assets/mercob-mark.svg` — brand mark.
