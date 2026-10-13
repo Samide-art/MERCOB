@@ -87,6 +87,7 @@ function showWelcome(){if(homeScreen)homeScreen.hidden=true;authScreen.hidden=tr
 function showDashboard(user){
  if(!homeScreen){showWelcome();return;}
  welcomeScreen.hidden=true;authScreen.hidden=true;homeScreen.hidden=false;homeScreen.classList.add("is-active");
+ if(rideMap)setTimeout(()=>rideMap.invalidateSize(),120);
  const meta=user?.user_metadata||{};$("homeUserName").textContent=meta.full_name||meta.name||(user?.email?user.email.split("@")[0]:"");
  loadDashboard(user);window.scrollTo({top:0,behavior:"smooth"});
 }
@@ -157,17 +158,30 @@ function communesForWilaya(code){
  return names.sort((a,b)=>a.localeCompare(b,language==="fr"?"fr":"ar"));
 }
 
-let rideMap=null, pickupMapMarker=null, destinationMapMarker=null, activeMapTarget="pickup";
+let rideMap=null, pickupMapMarker=null, destinationMapMarker=null, rideRouteLine=null, routeRequestId=0, activeMapTarget="pickup";
 let pickupCoordinates=null, destinationCoordinates=null;
 function setMapHint(message){const el=$("mapHint");if(el)el.textContent=message;}
-function updateMapSummary(){
+async function updateMapSummary(){
  const summary=$("mapRouteSummary");if(!summary)return;
  const fmt=p=>p? p.lat.toFixed(5)+", "+p.lng.toFixed(5):"لم تُحدد بعد";
  summary.hidden=false;
  summary.innerHTML='<div><strong>الانطلاق</strong><span>'+fmt(pickupCoordinates)+'</span></div><div><strong>الوجهة</strong><span>'+fmt(destinationCoordinates)+'</span></div>';
- if(pickupCoordinates&&destinationCoordinates){
-  const distance=rideMap?rideMap.distance([pickupCoordinates.lat,pickupCoordinates.lng],[destinationCoordinates.lat,destinationCoordinates.lng])/1000:0;
-  summary.innerHTML+='<p>المسافة المباشرة التقريبية: '+distance.toFixed(1)+' كم. المسافة عبر الطرق قد تكون أطول.</p>';
+ const requestId=++routeRequestId;
+ if(rideRouteLine&&rideMap){rideMap.removeLayer(rideRouteLine);rideRouteLine=null;}
+ if(!pickupCoordinates||!destinationCoordinates||!rideMap)return;
+ const straightDistance=rideMap.distance([pickupCoordinates.lat,pickupCoordinates.lng],[destinationCoordinates.lat,destinationCoordinates.lng])/1000;
+ summary.innerHTML+='<p>المسافة المباشرة: '+straightDistance.toFixed(1)+' كم. جارٍ حساب مسار الطريق…</p>';
+ try{
+  const coords=pickupCoordinates.lng+","+pickupCoordinates.lat+";"+destinationCoordinates.lng+","+destinationCoordinates.lat;
+  const response=await fetch("https://router.project-osrm.org/route/v1/driving/"+coords+"?overview=full&geometries=geojson");
+  if(!response.ok)throw new Error("Routing service unavailable");
+  const data=await response.json();if(requestId!==routeRequestId)return;
+  const route=data.routes?.[0];if(!route)throw new Error("No route");
+  rideRouteLine=L.geoJSON(route.geometry,{style:{color:"#f97316",weight:5,opacity:.85}}).addTo(rideMap);
+  summary.lastElementChild.textContent="مسافة الطريق التقريبية: "+(route.distance/1000).toFixed(1)+" كم · "+Math.round(route.duration/60)+" دقيقة قيادة تقديرية.";
+  rideMap.fitBounds(rideRouteLine.getBounds().pad(0.15),{maxZoom:14});
+ }catch(error){
+  console.warn("Route calculation unavailable",error);if(requestId===routeRequestId)summary.lastElementChild.textContent="تعذر حساب مسار الطرق الآن. المسافة المباشرة: "+straightDistance.toFixed(1)+" كم.";
  }
 }
 function updateMapTargetButtons(){
