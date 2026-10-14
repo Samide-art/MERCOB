@@ -139,94 +139,83 @@ function style(){
   #mercobTopNav .mn-more-wrap>button{padding:8px 7px!important;font-size:10px!important;gap:3px!important}
  }
  
-  /* MERCOB navigation layout: equal tabs, clear hierarchy, compact and consistent */
+  /* MERCOB navigation: four balanced horizontal tabs at the top */
   #mercobTopNav{
-   width:100%!important;box-sizing:border-box!important;
-   display:block!important;min-height:0!important;
-   margin:10px 0 20px!important;padding:6px!important;
-   border:1px solid #e5eaf0!important;border-radius:15px!important;
+   display:block!important;width:100%!important;box-sizing:border-box!important;
+   margin:10px 0 20px!important;padding:5px!important;min-height:0!important;
+   border:1px solid #e6eaf0!important;border-radius:14px!important;
    background:#fff!important;box-shadow:0 3px 14px rgba(24,43,58,.045)!important;
-   backdrop-filter:blur(10px);
   }
   #mercobTopNav .mn-primary{
    display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
-   align-items:stretch!important;gap:5px!important;min-width:0!important;width:100%!important;
-   flex:1 1 auto!important;overflow:visible!important;
+   width:100%!important;min-width:0!important;gap:4px!important;align-items:stretch!important;
   }
   #mercobTopNav .mn-primary>button,
   #mercobTopNav .mn-more-wrap>button{
-   box-sizing:border-box!important;display:flex!important;flex-direction:column!important;
-   align-items:center!important;justify-content:center!important;
-   width:100%!important;min-width:0!important;min-height:58px!important;
-   padding:7px 4px!important;gap:5px!important;
-   border:1px solid transparent!important;border-radius:10px!important;
-   background:transparent!important;color:#647180!important;
-   font:600 11px/1.25 Inter,"IBM Plex Sans Arabic",sans-serif!important;
-   text-align:center!important;white-space:normal!important;letter-spacing:0!important;
-   box-shadow:none!important;transition:background-color .16s ease,color .16s ease,border-color .16s ease!important;
+   display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:center!important;
+   box-sizing:border-box!important;width:100%!important;min-width:0!important;min-height:44px!important;
+   padding:9px 6px!important;gap:6px!important;border:1px solid transparent!important;border-radius:10px!important;
+   background:transparent!important;color:#5e6c7b!important;
+   font:600 11.5px/1.25 Inter,"IBM Plex Sans Arabic",sans-serif!important;
+   text-align:center!important;white-space:nowrap!important;letter-spacing:0!important;
+   box-shadow:none!important;transition:background-color .16s ease,border-color .16s ease,color .16s ease!important;
   }
   #mercobTopNav .mn-primary>button:hover,
-  #mercobTopNav .mn-more-wrap>button:hover{
-   background:#f7f8fa!important;color:#25384b!important;
-  }
+  #mercobTopNav .mn-more-wrap>button:hover{background:#f6f7f9!important;color:#27394b!important}
   #mercobTopNav .mn-primary>button[aria-current="page"]{
-   color:#c6531c!important;background:#fff3eb!important;border-color:#f7e1d4!important;
+   background:#fff1e8!important;border-color:#f5dfd2!important;color:#bd4d16!important;
   }
   #mercobTopNav .mn-icon{
    display:inline-flex!important;align-items:center!important;justify-content:center!important;
-   width:19px!important;height:19px!important;flex:0 0 19px!important;margin:0!important;
-   color:currentColor!important;opacity:1!important;font-size:17px!important;
+   width:17px!important;height:17px!important;flex:0 0 17px!important;margin:0!important;
+   color:currentColor!important;opacity:1!important;font-size:15px!important;
   }
   #mercobTopNav .mn-icon svg{
-   display:block!important;width:19px!important;height:19px!important;
-   fill:none!important;stroke:currentColor!important;stroke-width:1.75!important;
-   stroke-linecap:round!important;stroke-linejoin:round!important;
+   display:block!important;width:17px!important;height:17px!important;fill:none!important;
+   stroke:currentColor!important;stroke-width:1.75!important;stroke-linecap:round!important;stroke-linejoin:round!important;
   }
   #mercobTopNav .mn-primary>button [data-label],
   #mercobTopNav .mn-more-wrap>button [data-label]{
-   display:block!important;max-width:100%!important;overflow-wrap:anywhere!important;
+   display:inline-block!important;min-width:0!important;overflow:hidden!important;text-overflow:ellipsis!important;
   }
   #mercobTopNav .mn-more-wrap{position:relative!important;display:block!important;min-width:0!important}
-  #mercobTopNav #mnMore{position:relative!important}
   #mercobTopNav .mn-menu{
    top:calc(100% + 8px)!important;inset-inline-end:0!important;z-index:100!important;
-   min-width:220px!important;padding:6px!important;border:1px solid #e6ebf0!important;
-   border-radius:13px!important;background:#fff!important;box-shadow:0 14px 36px rgba(24,43,58,.14)!important;
+   min-width:215px!important;padding:6px!important;border:1px solid #e6ebf0!important;border-radius:13px!important;
+   background:#fff!important;box-shadow:0 14px 34px rgba(24,43,58,.13)!important;
   }
   #mercobTopNav .mn-menu button{
-   box-sizing:border-box!important;display:flex!important;flex-direction:row!important;
-   align-items:center!important;justify-content:flex-start!important;gap:9px!important;
-   width:100%!important;min-height:43px!important;padding:10px 12px!important;
-   border:0!important;border-radius:9px!important;background:transparent!important;
-   color:#4d5d6d!important;font:500 12px/1.4 Inter,"IBM Plex Sans Arabic",sans-serif!important;
-   text-align:start!important;white-space:normal!important;box-shadow:none!important;
+   display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;
+   width:100%!important;min-width:0!important;min-height:42px!important;padding:10px 12px!important;gap:9px!important;
+   border:0!important;border-radius:9px!important;background:transparent!important;color:#4d5d6d!important;
+   font:500 12px/1.4 Inter,"IBM Plex Sans Arabic",sans-serif!important;text-align:start!important;white-space:normal!important;
   }
   #mercobTopNav .mn-menu button:hover{background:#f5f7f9!important;color:#bd4d16!important}
-  #mercobTopNav .mn-inline-icon{display:block!important;width:17px!important;height:17px!important;flex:0 0 17px!important;margin:0!important;fill:none!important;stroke:currentColor!important;stroke-width:1.7!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+  #mercobTopNav .mn-inline-icon{
+   display:block!important;width:16px!important;height:16px!important;flex:0 0 16px!important;margin:0!important;
+   fill:none!important;stroke:currentColor!important;stroke-width:1.7!important;stroke-linecap:round!important;stroke-linejoin:round!important;
+  }
   #mercobTopNav button:focus-visible{outline:3px solid rgba(232,91,32,.23)!important;outline-offset:2px!important}
   @media(max-width:760px){
-   #mercobTopNav{margin:8px 0 16px!important;padding:5px!important;border-radius:13px!important}
-   #mercobTopNav .mn-primary{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:3px!important}
+   #mercobTopNav{margin:8px 0 16px!important;padding:4px!important;border-radius:12px!important}
+   #mercobTopNav .mn-primary{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:2px!important}
    #mercobTopNav .mn-primary>button,
    #mercobTopNav .mn-more-wrap>button{
-    width:100%!important;min-width:0!important;min-height:55px!important;
-    padding:7px 2px!important;gap:4px!important;border-radius:9px!important;font-size:10.5px!important;
+    min-height:40px!important;padding:8px 3px!important;gap:4px!important;border-radius:9px!important;font-size:10.5px!important;
    }
-   #mercobTopNav .mn-icon,#mercobTopNav .mn-icon svg{width:18px!important;height:18px!important;flex-basis:18px!important}
+   #mercobTopNav .mn-icon,#mercobTopNav .mn-icon svg{width:16px!important;height:16px!important;flex-basis:16px!important}
    #mercobTopNav .mn-menu{
     position:fixed!important;top:112px!important;inset-inline:12px!important;min-width:0!important;
     max-height:calc(100dvh - 132px)!important;overflow-y:auto!important;
    }
   }
   @media(max-width:390px){
-   #mercobTopNav .mn-primary{gap:2px!important}
    #mercobTopNav .mn-primary>button,
-   #mercobTopNav .mn-more-wrap>button{
-    padding:7px 1px!important;gap:4px!important;font-size:10px!important;line-height:1.2!important;
-   }
-   #mercobTopNav .mn-icon,#mercobTopNav .mn-icon svg{width:17px!important;height:17px!important;flex-basis:17px!important}
+   #mercobTopNav .mn-more-wrap>button{padding:7px 2px!important;gap:3px!important;font-size:9.5px!important}
+   #mercobTopNav .mn-icon,#mercobTopNav .mn-icon svg{width:15px!important;height:15px!important;flex-basis:15px!important}
   }
-  ;document.head.appendChild(s)
+
+  `;document.head.appendChild(s)
 }
 function build(){
  const top=document.querySelector('.topbar'),home=$('homeScreen');
