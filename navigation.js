@@ -4,7 +4,7 @@ const labels={
  ar:{home:'الرئيسية',trips:'رحلاتي',messages:'الرسائل',more:'المزيد',notifications:'الإشعارات',saved:'الأماكن المحفوظة',payments:'المدفوعات',account:'حسابي',support:'المساعدة',logout:'تسجيل الخروج',quick:'تنقّل بسهولة',back:'العودة للرئيسية'},
  fr:{home:'Accueil',trips:'Mes trajets',messages:'Messages',more:'Plus',notifications:'Notifications',saved:'Adresses enregistrées',payments:'Paiements',account:'Mon compte',support:'Assistance',logout:'Déconnexion',quick:'Naviguez facilement',back:'Retour à l’accueil'}
 };
-let current='home',built=false;
+let current='home',built=false,visibilityObserver;
 const lang=()=>labels[document.documentElement.lang==='fr'?'fr':'ar'];
 function style(){
  if($('mercobNavStyles'))return;
@@ -63,10 +63,15 @@ function go(page){
 }
 function init(){
  const home=$('homeScreen');
- if(!home||home.hidden)return;
+ if(!home)return;
+ if(!visibilityObserver){
+  visibilityObserver=new MutationObserver(()=>{if(!home.hidden){style();build()}});
+  visibilityObserver.observe(home,{attributes:true,attributeFilter:['hidden']});
+ }
+ if(home.hidden)return;
  style();build();
 }
-document.addEventListener('mercob:authenticated',()=>setTimeout(init,30));
+document.addEventListener('mercob:authenticated',()=>{init();setTimeout(init,80)});
 window.addEventListener('mercob-supabase-ready',()=>setTimeout(init,50));
 document.addEventListener('mercob:signed-out',()=>{if($('mercobTopNav'))$('mercobTopNav').remove();built=false;current='home';$('mercobNavStyles')?.remove()});
 $('languageSwitch')?.addEventListener('click',()=>setTimeout(translate,0));
