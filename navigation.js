@@ -38,6 +38,74 @@ function style(){
   #mercobTopNav .mn-account{display:none}
   #mercobTopNav .mn-menu{position:fixed;top:120px;inset-inline:12px;z-index:60;min-width:0}
  }
+
+ /* Navigation refinement: calmer hierarchy, clearer spacing, less visual bulk */
+ #mercobTopNav{
+  gap:10px!important;
+  margin:8px 0 22px!important;
+  padding:7px 9px!important;
+  border:1px solid #e9edf2!important;
+  border-radius:14px!important;
+  background:rgba(255,255,255,.94)!important;
+  box-shadow:0 3px 12px rgba(11,27,46,.035)!important;
+  backdrop-filter:blur(12px);
+ }
+ #mercobTopNav .mn-primary{gap:3px!important}
+ #mercobTopNav button{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:5px!important;
+  min-height:39px!important;
+  padding:9px 12px!important;
+  border-radius:10px!important;
+  color:#596779!important;
+  font-size:12px!important;
+  font-weight:700!important;
+  transition:background-color .16s ease,color .16s ease!important;
+ }
+ #mercobTopNav button:hover{background:#f5f6f8!important;color:#26384d!important}
+ #mercobTopNav button[aria-current=page]{
+  background:#fff2e9!important;
+  color:#c94c0a!important;
+  box-shadow:inset 0 0 0 1px #f7dfd1!important;
+ }
+ #mercobTopNav .mn-icon{font-size:15px!important;margin:0!important;opacity:.88}
+ #mercobTopNav .mn-account{
+  margin-inline-start:auto!important;
+  background:#f3f5f7!important;
+  color:#26384d!important;
+  border:1px solid #e7ebf0!important;
+ }
+ #mercobTopNav .mn-account[aria-current=page]{background:#fff2e9!important;color:#c94c0a!important;border-color:#f7dfd1!important}
+ #mercobTopNav .mn-menu{
+  padding:6px!important;
+  border-color:#e8ecf1!important;
+  border-radius:13px!important;
+  box-shadow:0 12px 32px rgba(11,27,46,.12)!important;
+ }
+ @media(max-width:760px){
+  #mercobTopNav{
+   margin:6px 0 16px!important;
+   padding:5px!important;
+   gap:3px!important;
+   border-radius:13px!important;
+  }
+  #mercobTopNav .mn-primary{gap:2px!important;min-width:0}
+  #mercobTopNav .mn-primary>button,
+  #mercobTopNav .mn-more-wrap>button{
+   flex:0 0 auto!important;
+   min-height:38px!important;
+   padding:8px 10px!important;
+   font-size:11px!important;
+  }
+  #mercobTopNav .mn-icon{font-size:14px!important}
+  #mercobTopNav .mn-menu{top:108px!important;max-height:calc(100dvh - 130px);overflow-y:auto}
+ }
+ @media(max-width:390px){
+  #mercobTopNav .mn-primary>button,
+  #mercobTopNav .mn-more-wrap>button{padding:8px 7px!important;font-size:10px!important;gap:3px!important}
+ }
  `;document.head.appendChild(s)
 }
 function build(){
