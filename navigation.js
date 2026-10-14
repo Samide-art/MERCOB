@@ -41,6 +41,12 @@ function style(){
  #mercobTopNav .mn-menu.open{display:grid}
  #mercobTopNav .mn-menu button{text-align:start;width:100%;white-space:normal}
  #mercobTopNav .mn-account{margin-inline-start:auto;background:#0b1b2e!important;color:#fff!important}
+ .topbar .top-account-button{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;flex:0 0 auto!important;margin-inline-start:auto!important;min-height:39px!important;padding:8px 12px!important;border:1px solid #25394c!important;border-radius:12px!important;background:#0b1b2e!important;color:#fff!important;font:600 12px/1.25 Inter,"IBM Plex Sans Arabic",sans-serif!important;white-space:nowrap!important;box-shadow:none!important}
+ .topbar .top-account-button:hover{background:#203747!important;color:#fff!important}
+ .topbar .top-account-button[aria-current=page]{background:#fff0e6!important;color:#c94c0a!important;border-color:#f7dfd1!important}
+ .topbar .top-account-button .mn-icon{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:17px!important;height:17px!important;margin:0!important;flex:0 0 17px!important;font-size:15px!important}
+ .topbar .top-account-button .mn-icon svg{display:block;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+ .topbar .top-account-button [data-label]{display:inline-block!important}
  .rider-features .rf-nav{display:none!important}
  .rider-features{margin-top:0!important}
  #homeScreen .home-welcome{margin-bottom:20px}
@@ -56,6 +62,9 @@ function style(){
   #mercobTopNav button{padding:10px 9px;font-size:12px;min-height:40px}
   #mercobTopNav .mn-icon{margin-inline-end:3px}
   #mercobTopNav .mn-account{display:none}
+  .topbar{gap:7px}
+  .topbar .top-account-button{min-height:36px!important;padding:7px 9px!important;gap:5px!important;font-size:11px!important}
+  .topbar .top-account-button .mn-icon,.topbar .top-account-button .mn-icon svg{width:15px!important;height:15px!important;flex-basis:15px!important}
   #mercobTopNav .mn-menu{position:fixed;top:120px;inset-inline:12px;z-index:60;min-width:0}
  }
 
@@ -136,17 +145,25 @@ function build(){
  if(!top||!home||home.hidden||$('mercobTopNav'))return;
  const nav=document.createElement('nav');nav.id='mercobTopNav';nav.setAttribute('aria-label',document.documentElement.lang==='fr'?'Navigation principale':'التنقل الرئيسي');
  nav.innerHTML='<div class="mn-primary"><button type="button" data-page="home"><span class="mn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3.5 10 8.5-7 8.5 7v10a1 1 0 0 1-1 1h-5.2v-6.5H9.7V21H4.5a1 1 0 0 1-1-1z"/></svg></span><span data-label="home"></span></button><button type="button" data-page="trips"><span class="mn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5h10M17 4.5v10M17 4.5 6 15.5"/><path d="M5 8.5v10a2 2 0 0 0 2 2h10"/></svg></span><span data-label="trips"></span></button><button type="button" data-page="messages"><span class="mn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5.5h16v13H4z"/><path d="M7.5 9h9M7.5 12h9M7.5 15h5"/></svg></span><span data-label="messages"></span></button><div class="mn-more-wrap"><button type="button" id="mnMore" aria-expanded="false"><span class="mn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span><span data-label="more"></span>⌄</button><div class="mn-menu" id="mnMenu"><button type="button" data-page="notifications"><svg class="mn-inline-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span data-label="notifications"></span></button><button type="button" data-page="saved"><svg class="mn-inline-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><span data-label="saved"></span></button><button type="button" data-page="payments"><svg class="mn-inline-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg><span data-label="payments"></span></button><button type="button" data-page="support"><svg class="mn-inline-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.6 2.6 0 1 1 4.2 2c-1.2.9-1.7 1.3-1.7 2.8M12 17.5v.1"/></svg><span data-label="support"></span></button><button type="button" data-page="logout"><svg class="mn-inline-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5M14 8l4 4-4 4M18 12H9"/></svg><span data-label="logout"></span></button></div></div></div><button type="button" class="mn-account" data-page="account"><span class="mn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c.5-4 3.2-6 7.5-6s7 2 7.5 6"/></svg></span><span data-label="account"></span></button>';
+ const accountButton=nav.querySelector('.mn-account');
+ if(accountButton){
+  accountButton.id='mercobTopAccount';
+  accountButton.classList.add('top-account-button');
+  top.insertBefore(accountButton,$('languageSwitch'));
+  accountButton.addEventListener('click',()=>go('account'));
+ }
  top.insertAdjacentElement('afterend',nav);
  nav.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
  $('mnMore').addEventListener('click',()=>{const menu=$('mnMenu'),open=!menu.classList.contains('open');menu.classList.toggle('open',open);$('mnMore').setAttribute('aria-expanded',String(open))});
  document.addEventListener('click',e=>{if(!nav.contains(e.target)){$('mnMenu')?.classList.remove('open');$('mnMore')?.setAttribute('aria-expanded','false')}});
  built=true;translate();go('home');
 }
-function translate(){if(!$('mercobTopNav'))return;const L=lang();$('mercobTopNav').querySelectorAll('[data-label]').forEach(n=>n.textContent=L[n.dataset.label]||n.dataset.label);$('mercobTopNav').setAttribute('aria-label',document.documentElement.lang==='fr'?'Navigation principale':'التنقل الرئيسي')}
+function translate(){if(!$('mercobTopNav'))return;const L=lang();$('mercobTopNav').querySelectorAll('[data-label]').forEach(n=>n.textContent=L[n.dataset.label]||n.dataset.label);const accountLabel=$('mercobTopAccount')?.querySelector('[data-label="account"]');if(accountLabel)accountLabel.textContent=L.account;$('mercobTopNav').setAttribute('aria-label',document.documentElement.lang==='fr'?'Navigation principale':'التنقل الرئيسي')}
 function go(page){
  const home=$('homeScreen'),nav=$('mercobTopNav');if(!home||!nav)return;
  current=page;home.classList.toggle('mn-home',page==='home');home.classList.toggle('mn-subview',page!=='home');
  nav.querySelectorAll('[data-page]').forEach(b=>{if(b.dataset.page===page)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
+ const topAccount=$('mercobTopAccount');if(topAccount){if(page==='account')topAccount.setAttribute('aria-current','page');else topAccount.removeAttribute('aria-current')}
  $('mnMenu')?.classList.remove('open');$('mnMore')?.setAttribute('aria-expanded','false');
  if(page==='home'){home.scrollIntoView({behavior:'smooth',block:'start'});return}
  if(page==='logout'){$('logoutButton')?.click();return}
@@ -164,7 +181,7 @@ function init(){
 }
 document.addEventListener('mercob:authenticated',()=>{init();setTimeout(init,80)});
 window.addEventListener('mercob-supabase-ready',()=>setTimeout(init,50));
-document.addEventListener('mercob:signed-out',()=>{if($('mercobTopNav'))$('mercobTopNav').remove();built=false;current='home';$('mercobNavStyles')?.remove()});
+document.addEventListener('mercob:signed-out',()=>{if($('mercobTopNav'))$('mercobTopNav').remove();$('mercobTopAccount')?.remove();built=false;current='home';$('mercobNavStyles')?.remove()});
 $('languageSwitch')?.addEventListener('click',()=>setTimeout(translate,0));
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
