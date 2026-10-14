@@ -390,3 +390,8 @@ body{margin:0;padding:0!important;background:#F5F7FA!important}
  .home-screen{padding:28px 26px 32px!important}
  #mercobTopNav{margin:14px 24px 0!important}
 }
+
+
+/* Ensure each language uses a font that is actually loaded by index.html. */
+html[dir="rtl"] body { font-family: "IBM Plex Sans Arabic", sans-serif !important; }
+html[dir="ltr"] body { font-family: "Inter", sans-serif !important; }
