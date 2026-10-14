@@ -1,5 +1,25 @@
 (()=> {
 const $=id=>document.getElementById(id);
+
+// Remove the retired home greeting from the live DOM, including if an older
+// cached HTML version still contains it. This does not touch the ride form/map.
+function removeRetiredHomeGreeting(){
+ const root=$('homeScreen');
+ if(!root)return;
+ root.querySelectorAll('.home-welcome').forEach(node=>node.remove());
+ root.querySelectorAll('[data-i18n="homeKicker"]').forEach(node=>{
+  if((node.textContent||'').trim()==='Votre espace MERCOB'||(node.textContent||'').trim()==='مساحتك في MERCOB'){
+   const section=node.closest('.home-welcome')||node.parentElement?.parentElement;
+   if(section&&root.contains(section))section.remove();
+  }
+ });
+}
+removeRetiredHomeGreeting();
+if(document.body&&!window.__mercobGreetingCleanupObserver){
+ const observer=new MutationObserver(()=>removeRetiredHomeGreeting());
+ observer.observe(document.body,{childList:true,subtree:true});
+ window.__mercobGreetingCleanupObserver=observer;
+}
 const labels={
  ar:{home:'الرئيسية',trips:'رحلاتي',messages:'الرسائل',more:'المزيد',notifications:'الإشعارات',saved:'الأماكن المحفوظة',payments:'المدفوعات',account:'حسابي',support:'المساعدة',logout:'تسجيل الخروج',quick:'تنقّل بسهولة',back:'العودة للرئيسية'},
  fr:{home:'Accueil',trips:'Mes trajets',messages:'Messages',more:'Plus',notifications:'Notifications',saved:'Adresses enregistrées',payments:'Paiements',account:'Mon compte',support:'Assistance',logout:'Déconnexion',quick:'Naviguez facilement',back:'Retour à l’accueil'}
