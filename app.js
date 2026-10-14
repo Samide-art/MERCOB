@@ -95,6 +95,7 @@ function showAuth(){if(homeScreen)homeScreen.hidden=true;welcomeScreen.hidden=tr
 function showWelcome(){currentDashboardUser=null;if(homeScreen)homeScreen.hidden=true;authScreen.hidden=true;welcomeScreen.hidden=false;welcomeScreen.classList.add("is-active");window.scrollTo({top:0,behavior:"smooth"});}
 function showDashboard(user){
  if(!homeScreen){showWelcome();return;}
+ currentDashboardUser=user||null;
  welcomeScreen.hidden=true;authScreen.hidden=true;homeScreen.hidden=false;homeScreen.classList.add("is-active");
  if(rideMap)setTimeout(()=>rideMap.invalidateSize(),120);
  const meta=user?.user_metadata||{};$("homeUserName").textContent=meta.full_name||meta.name||(user?.email?user.email.split("@")[0]:"");
