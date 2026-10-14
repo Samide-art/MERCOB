@@ -4,7 +4,7 @@ const labels={
  ar:{home:'الرئيسية',trips:'رحلاتي',messages:'الرسائل',more:'المزيد',notifications:'الإشعارات',saved:'الأماكن المحفوظة',payments:'المدفوعات',account:'حسابي',support:'المساعدة',logout:'تسجيل الخروج',quick:'تنقّل بسهولة',back:'العودة للرئيسية'},
  fr:{home:'Accueil',trips:'Mes trajets',messages:'Messages',more:'Plus',notifications:'Notifications',saved:'Adresses enregistrées',payments:'Paiements',account:'Mon compte',support:'Assistance',logout:'Déconnexion',quick:'Naviguez facilement',back:'Retour à l’accueil'}
 };
-let current='home',built=false,observer;
+let current='home',built=false;
 const lang=()=>labels[document.documentElement.lang==='fr'?'fr':'ar'];
 function style(){
  if($('mercobNavStyles'))return;
@@ -42,7 +42,7 @@ function style(){
 }
 function build(){
  const top=$('.topbar'),home=$('homeScreen');
- if(!top||!home||$('mercobTopNav'))return;
+ if(!top||!home||home.hidden||$('mercobTopNav'))return;
  const nav=document.createElement('nav');nav.id='mercobTopNav';nav.setAttribute('aria-label',document.documentElement.lang==='fr'?'Navigation principale':'التنقل الرئيسي');
  nav.innerHTML='<div class="mn-primary"><button type="button" data-page="home"><span class="mn-icon">⌂</span><span data-label="home"></span></button><button type="button" data-page="trips"><span class="mn-icon">↗</span><span data-label="trips"></span></button><button type="button" data-page="messages"><span class="mn-icon">▤</span><span data-label="messages"></span></button><div class="mn-more-wrap"><button type="button" id="mnMore" aria-expanded="false"><span class="mn-icon">☷</span><span data-label="more"></span>⌄</button><div class="mn-menu" id="mnMenu"><button type="button" data-page="notifications">♢ <span data-label="notifications"></span></button><button type="button" data-page="saved">⌖ <span data-label="saved"></span></button><button type="button" data-page="payments">◇ <span data-label="payments"></span></button><button type="button" data-page="support">? <span data-label="support"></span></button></div></div></div><button type="button" class="mn-account" data-page="account"><span class="mn-icon">●</span><span data-label="account"></span></button>';
  top.insertAdjacentElement('afterend',nav);
@@ -61,9 +61,9 @@ function go(page){
  const rf=$('riderFeatures');if(rf){rf.style.display='block';const tab=rf.querySelector('[data-tab="'+page+'"]');if(tab)tab.click();else if(page==='account')rf.querySelector('[data-tab="account"]')?.click();rf.scrollIntoView({behavior:'smooth',block:'start'})}
 }
 function init(){
- style();build();
  const home=$('homeScreen');
- if(home&&!observer){observer=new MutationObserver(()=>{if(!built)build();if(current!=='home'&&$('riderFeatures'))go(current)});observer.observe(home,{childList:true,subtree:true})}
+ if(!home||home.hidden)return;
+ style();build();
 }
 document.addEventListener('mercob:authenticated',()=>setTimeout(init,30));
 window.addEventListener('mercob-supabase-ready',()=>setTimeout(init,50));
