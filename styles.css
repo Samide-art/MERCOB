@@ -395,3 +395,7 @@ body{margin:0;padding:0!important;background:#F5F7FA!important}
 /* Ensure each language uses a font that is actually loaded by index.html. */
 html[dir="rtl"] body { font-family: "IBM Plex Sans Arabic", sans-serif !important; }
 html[dir="ltr"] body { font-family: "Inter", sans-serif !important; }
+
+
+/* Safety net: keep the removed home greeting hidden if an older HTML copy is cached. */
+#homeScreen .home-welcome { display: none !important; }
