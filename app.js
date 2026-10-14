@@ -160,6 +160,69 @@ function communesForWilaya(code){
 
 let rideMap=null, pickupMapMarker=null, destinationMapMarker=null, rideRouteLine=null, routeRequestId=0, activeMapTarget="pickup";
 let pickupCoordinates=null, destinationCoordinates=null;
+const mapAddressRequestIds={pickup:0,destination:0};
+function normalizeLocationName(value){
+ return String(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase().replace(/[’'`]/g,"").replace(/[^\p{L}\p{N}]+/gu," ").trim();
+}
+function findWilayaByName(value){
+ const key=normalizeLocationName(value);if(!key||!algeriaLocationData?.wilayas)return null;
+ return algeriaLocationData.wilayas.find(w=>{
+  const names=[w.nom_ar,w.nom_fr,w.name,w.name_ar,w.name_fr].map(normalizeLocationName).filter(Boolean);
+  return names.some(n=>n===key||n.includes(key)||key.includes(n));
+ })||null;
+}
+function findCommuneByName(wilaya,value){
+ const key=normalizeLocationName(value);if(!key||!wilaya)return null;
+ for(const daira of wilaya.dairas||[]){
+  for(const commune of daira.communes||[]){
+   const names=[commune.nom_ar,commune.nom_fr,commune.name,commune.name_ar,commune.name_fr].map(normalizeLocationName).filter(Boolean);
+   if(names.some(n=>n===key||n.includes(key)||key.includes(n)))return commune;
+  }
+ }
+ return null;
+}
+async function fillLocationFieldsFromCoordinates(target,point){
+ const requestId=++mapAddressRequestIds[target];
+ const isPickup=target==="pickup";
+ const wilayaSelect=$(isPickup?"pickupWilaya":"destinationWilaya");
+ const communeInput=$(isPickup?"pickupCommune":"destinationCommune");
+ const neighborhoodInput=$(isPickup?"pickupNeighborhood":"destinationNeighborhood");
+ setMapHint(isPickup?"جارٍ تحديد عنوان نقطة الانطلاق…":"جارٍ تحديد عنوان الوجهة…");
+ try{
+  const response=await fetch("https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat="+encodeURIComponent(point.lat)+"&lon="+encodeURIComponent(point.lng)+"&zoom=16&addressdetails=1",{headers:{Accept:"application/json"}});
+  if(!response.ok)throw new Error("Reverse geocoding unavailable");
+  const data=await response.json();
+  if(requestId!==mapAddressRequestIds[target])return;
+  const address=data.address||{};
+  const wilayaName=address.state||address.province||address.region||"";
+  const communeName=address.city||address.town||address.municipality||address.village||address.county||"";
+  const neighborhoodName=address.suburb||address.neighbourhood||address.residential||address.road||"";
+  let matchedWilaya=findWilayaByName(wilayaName);
+  if(matchedWilaya){
+   wilayaSelect.value=String(matchedWilaya.code??matchedWilaya.wilaya_num??"");
+   refreshCommuneLists();
+  }
+  const communeKey=normalizeLocationName(communeName);
+  const matchedCommune=matchedWilaya?findCommuneByName(matchedWilaya,communeName):null;
+  if(matchedCommune){
+   communeInput.value=(language==="fr"?matchedCommune.nom_fr:matchedCommune.nom_ar)||matchedCommune.nom_ar||matchedCommune.nom_fr||communeName;
+  }else if(communeName){
+   communeInput.value=communeName;
+  }
+  if(neighborhoodName)neighborhoodInput.value=neighborhoodName;
+  if(matchedWilaya&&matchedCommune){
+   setMapHint(isPickup?"تم ملء ولاية وبلدية نقطة الانطلاق تلقائيًا. يمكنك تعديل العنوان قبل إرسال الطلب.":"تم ملء ولاية وبلدية الوجهة تلقائيًا. يمكنك تعديل العنوان قبل إرسال الطلب.");
+  }else if(data.display_name){
+   setMapHint(isPickup?"تم تحديد موقع الانطلاق. راجع الولاية والبلدية وأكمل أي خانة لم تُملأ تلقائيًا.":"تم تحديد الوجهة. راجع الولاية والبلدية وأكمل أي خانة لم تُملأ تلقائيًا.");
+  }else{
+   setMapHint("تم تحديد الموقع، لكن تعذر قراءة العنوان تلقائيًا. أدخل الولاية والبلدية يدويًا.");
+  }
+ }catch(error){
+  if(requestId!==mapAddressRequestIds[target])return;
+  console.warn("Could not resolve map coordinates to an address",error);
+  setMapHint(isPickup?"تم تحديد نقطة الانطلاق. تعذر جلب العنوان تلقائيًا؛ أدخل الولاية والبلدية يدويًا.":"تم تحديد الوجهة. تعذر جلب العنوان تلقائيًا؛ أدخل الولاية والبلدية يدويًا.");
+ }
+}
 function setMapHint(message){const el=$("mapHint");if(el)el.textContent=message;}
 async function updateMapSummary(){
  const summary=$("mapRouteSummary");if(!summary)return;
@@ -195,14 +258,15 @@ function setMapPoint(target,latlng){
   pickupCoordinates=point;
   if(!pickupMapMarker)pickupMapMarker=L.marker(latlng,{draggable:true}).addTo(rideMap).bindPopup("نقطة الانطلاق");
   else pickupMapMarker.setLatLng(latlng);
-  pickupMapMarker.off("dragend").on("dragend",()=>{const p=pickupMapMarker.getLatLng();pickupCoordinates={lat:Number(p.lat.toFixed(6)),lng:Number(p.lng.toFixed(6))};updateMapSummary();});
+  pickupMapMarker.off("dragend").on("dragend",()=>{const p=pickupMapMarker.getLatLng();pickupCoordinates={lat:Number(p.lat.toFixed(6)),lng:Number(p.lng.toFixed(6))};updateMapSummary();fillLocationFieldsFromCoordinates("pickup",pickupCoordinates);});
  }else{
   destinationCoordinates=point;
   if(!destinationMapMarker)destinationMapMarker=L.marker(latlng,{draggable:true}).addTo(rideMap).bindPopup("الوجهة");
   else destinationMapMarker.setLatLng(latlng);
-  destinationMapMarker.off("dragend").on("dragend",()=>{const p=destinationMapMarker.getLatLng();destinationCoordinates={lat:Number(p.lat.toFixed(6)),lng:Number(p.lng.toFixed(6))};updateMapSummary();});
+  destinationMapMarker.off("dragend").on("dragend",()=>{const p=destinationMapMarker.getLatLng();destinationCoordinates={lat:Number(p.lat.toFixed(6)),lng:Number(p.lng.toFixed(6))};updateMapSummary();fillLocationFieldsFromCoordinates("destination",destinationCoordinates);});
  }
  updateMapSummary();
+ fillLocationFieldsFromCoordinates(target,point);
  if(pickupCoordinates&&destinationCoordinates){
   const bounds=L.latLngBounds([[pickupCoordinates.lat,pickupCoordinates.lng],[destinationCoordinates.lat,destinationCoordinates.lng]]);
   rideMap.fitBounds(bounds.pad(0.25),{maxZoom:14});
