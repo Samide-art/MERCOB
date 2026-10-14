@@ -107,7 +107,7 @@ async function loadDashboard(user){
   if(error)throw error;$("rideCount").textContent=String(data?.length||0);
   if(!data?.length)return;
   const statuses={requested:t("statusRequested"),offered:t("statusOffered"),accepted:t("statusAccepted"),driver_arriving:t("statusDriverArriving"),in_progress:t("statusInProgress"),completed:t("statusCompleted"),cancelled:t("statusCancelled")};
-  $("recentRides").innerHTML=data.map(r=>'<article class="ride-item"><div class="ride-item-icon">↗</div><div class="ride-item-main"><strong>'+escapeHtml(r.destination_address)+'</strong><p>'+escapeHtml(r.pickup_address)+'</p><span class="ride-status">'+(statuses[r.status]||escapeHtml(r.status))+'</span></div><div class="ride-item-price">'+Number(r.agreed_price||r.requested_price||0).toLocaleString('fr-DZ')+' <small>دج</small></div></article>').join("");
+  $("recentRides").innerHTML=data.map(r=>'<article class="ride-item"><div class="ride-item-icon">↗</div><div class="ride-item-main"><strong>'+escapeHtml(r.destination_address)+'</strong><p>'+escapeHtml(r.pickup_address)+'</p><span class="ride-status">'+(statuses[r.status]||escapeHtml(r.status))+'</span></div><div class="ride-item-price">'+Number(r.agreed_price||r.requested_price||0).toLocaleString('fr-DZ')+' <small>'+t("ridePriceUnit")+'</small></div></article>').join("");
  }catch(e){console.warn("MERCOB dashboard data:",e);}
 }
 function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));}
