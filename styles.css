@@ -203,3 +203,101 @@ html[dir="rtl"] .text-field { direction: ltr; text-align: left; }
 .rf-note{padding:12px;border-radius:12px;background:#f8fafc;color:var(--slate);font-size:11px;line-height:1.8}
 .rf-panel [data-tab],.rf-panel [data-ride],.rf-panel [data-read],.rf-panel [data-del],.rf-panel [data-conv]{max-width:100%}
 @media(min-width:500px){.rf-nav{grid-template-columns:repeat(3,minmax(0,1fr))}.rider-features{padding:20px}}
+
+
+/* Final visual refinement — preserve all screens, controls, positions and behavior */
+:root {
+  --slate: #667487;
+  --shadow-soft: 0 14px 38px rgba(11, 27, 46, .065);
+}
+body {
+  background: #F4F5F7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.app-shell {
+  background: #FFFEFD;
+}
+h1, h2, h3, h4, strong, .brand-word {
+  text-rendering: optimizeLegibility;
+}
+p {
+  text-wrap: pretty;
+}
+.button-primary {
+  box-shadow: 0 4px 12px rgba(230, 83, 0, .14);
+}
+.button-primary:hover {
+  box-shadow: 0 6px 16px rgba(230, 83, 0, .18);
+}
+.text-field,
+.phone-field,
+.password-field,
+.rf-panel input:not([type=checkbox]),
+.rf-panel textarea,
+.rf-panel select {
+  border-color: #E3E6EB;
+  transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+.text-field:focus,
+.phone-field:focus-within,
+.password-field:focus-within,
+.rf-panel input:not([type=checkbox]):focus,
+.rf-panel textarea:focus,
+.rf-panel select:focus {
+  border-color: rgba(230, 83, 0, .72);
+  box-shadow: 0 0 0 3px rgba(255, 96, 0, .065);
+}
+.ride-request-card,
+.rider-features,
+.map-picker-card {
+  box-shadow: 0 5px 18px rgba(11, 27, 46, .028);
+  border-color: #E9ECF0;
+}
+.location-group {
+  background: #FDFDFD;
+  border-color: #E7EAF0;
+}
+.ride-item,
+.rf-item,
+.auth-option {
+  border-color: #E7EAF0;
+}
+.ride-item,
+.rf-item {
+  transition: border-color .18s ease, background-color .18s ease;
+}
+.ride-item:hover,
+.rf-item:hover {
+  border-color: #D9DEE6;
+}
+.home-hero {
+  background: linear-gradient(125deg, #102238 0%, #19334B 100%);
+}
+.home-avatar,
+.home-step,
+.ride-item-icon,
+.empty-rides-icon,
+.mini-mark {
+  background: #FFF3EB;
+}
+.rf-nav button,
+.map-select-button,
+.map-location-button {
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+}
+.rf-nav button.active {
+  border-color: #F2C5AC;
+  background: #FFF5EF;
+  color: #A94412;
+}
+#rideMap {
+  background: #EEF1F4;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .auth-option:hover,
+  .rf-panel button:hover,
+  .map-select-button:hover {
+    transition-duration: .18s;
+  }
+}
