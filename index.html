@@ -29,135 +29,38 @@
           <path d="M43 223C76 202 72 162 114 154C155 146 169 190 209 168C246 148 224 100 270 75" stroke="#FF6000" stroke-opacity=".15" stroke-width="18" stroke-linecap="round"/>
           <circle cx="43" cy="223" r="10" fill="#FFC107" stroke="white" stroke-width="5"/>
           <circle cx="270" cy="75" r="10" fill="#FF6000" stroke="white" stroke-width="5"/>
-          <g transform="translate(106 60) rotate(-8 70 70)">
-            <rect x="7" y="13" width="133" height="156" rx="31" fill="#0B1B2E" fill-opacity=".08"/>
-            <rect x="0" y="0" width="140" height="160" rx="32" fill="white"/>
-            <rect x="10" y="10" width="120" height="140" rx="25" fill="#FFF4EC"/>
-            <path d="M70 31C48 31 32 48 32 69C32 96 70 126 70 126C70 126 108 96 108 69C108 48 92 31 70 31Z" fill="#FF6000"/>
-            <path d="M51 54L70 87L89 54L70 66L51 54Z" fill="white"/>
-            <circle cx="70" cy="66" r="8" fill="#FFC107"/>
-          </g>
-          <g transform="translate(220 185)">
-            <rect width="83" height="51" rx="16" fill="white"/>
-            <circle cx="18" cy="25" r="6" fill="#168A5B"/>
-            <path d="M32 19H67M32 29H58" stroke="#0B1B2E" stroke-opacity=".22" stroke-width="5" stroke-linecap="round"/>
-          </g>
-          <g transform="translate(20 78)">
-            <rect width="76" height="46" rx="15" fill="white"/>
-            <circle cx="17" cy="23" r="6" fill="#FFC107"/>
-            <path d="M31 17H60M31 27H52" stroke="#0B1B2E" stroke-opacity=".2" stroke-width="5" stroke-linecap="round"/>
-          </g>
+          <g transform="translate(106 60) rotate(-8 70 70)"><rect x="7" y="13" width="133" height="156" rx="31" fill="#0B1B2E" fill-opacity=".08"/><rect x="0" y="0" width="140" height="160" rx="32" fill="white"/><rect x="10" y="10" width="120" height="140" rx="25" fill="#FFF4EC"/><path d="M70 31C48 31 32 48 32 69C32 96 70 126 70 126C70 126 108 96 108 69C108 48 92 31 70 31Z" fill="#FF6000"/><path d="M51 54L70 87L89 54L70 66L51 54Z" fill="white"/><circle cx="70" cy="66" r="8" fill="#FFC107"/></g>
+          <g transform="translate(220 185)"><rect width="83" height="51" rx="16" fill="white"/><circle cx="18" cy="25" r="6" fill="#168A5B"/><path d="M32 19H67M32 29H58" stroke="#0B1B2E" stroke-opacity=".22" stroke-width="5" stroke-linecap="round"/></g>
+          <g transform="translate(20 78)"><rect width="76" height="46" rx="15" fill="white"/><circle cx="17" cy="23" r="6" fill="#FFC107"/><path d="M31 17H60M31 27H52" stroke="#0B1B2E" stroke-opacity=".2" stroke-width="5" stroke-linecap="round"/></g>
         </svg>
         <div class="floating-chip chip-fast"><span class="chip-dot"></span><span data-i18n="fast">سريع وسهل</span></div>
         <div class="floating-chip chip-safe"><span class="shield-icon">✓</span><span data-i18n="yourChoice">أنت تختار</span></div>
       </div>
-
-      <div class="welcome-copy">
-        <div class="eyebrow"><span class="eyebrow-dot"></span><span data-i18n="eyebrow">تنقّل بذكاء مع MERCOB</span></div>
-        <h1 id="welcomeTitle" data-i18n="welcomeTitle">مشوارك أسهل،<br><span>وأنت تختار.</span></h1>
-        <p class="lead" data-i18n="welcomeDescription">اطلب مشوارك أو رتّب توصيلك بسهولة. تجربة واضحة تمنحك حرية الاختيار من البداية.</p>
-      </div>
-
-      <div class="welcome-actions">
-        <button class="button button-primary" type="button" id="startButton" aria-controls="authScreen"><span data-i18n="startNow">ابدأ الآن</span><span class="button-arrow" aria-hidden="true">←</span></button>
-        <button class="button button-quiet" type="button" id="welcomeLogin" data-i18n="alreadyHaveAccount">لديك حساب؟ تسجيل الدخول</button>
-      </div>
+      <div class="welcome-copy"><div class="eyebrow"><span class="eyebrow-dot"></span><span data-i18n="eyebrow">تنقّل بذكاء مع MERCOB</span></div><h1 id="welcomeTitle" data-i18n="welcomeTitle">مشوارك أسهل،<br><span>وأنت تختار.</span></h1><p class="lead" data-i18n="welcomeDescription">اطلب مشوارك أو رتّب توصيلك بسهولة. تجربة واضحة تمنحك حرية الاختيار من البداية.</p></div>
+      <div class="welcome-actions"><button class="button button-primary" type="button" id="startButton" aria-controls="authScreen"><span data-i18n="startNow">ابدأ الآن</span><span class="button-arrow" aria-hidden="true">←</span></button><button class="button button-quiet" type="button" id="welcomeLogin" data-i18n="alreadyHaveAccount">لديك حساب؟ تسجيل الدخول</button></div>
       <p class="legal-note" data-i18n="legalNote">بالمتابعة، أنت توافق على شروط الاستخدام وسياسة الخصوصية.</p>
     </section>
-
     <section class="screen auth-screen" id="authScreen" aria-labelledby="authTitle" hidden>
       <button class="back-button" type="button" id="backButton" aria-label="رجوع"><span aria-hidden="true">→</span><span data-i18n="back">رجوع</span></button>
-      <div class="auth-heading">
-        <div class="mini-mark"><img src="./assets/mercob-mark.svg" alt=""></div>
-        <p class="eyebrow" data-i18n="goodToSeeYou">أهلاً بك في MERCOB</p>
-        <h1 id="authTitle" data-i18n="authTitle">كيف نبدأ؟</h1>
-        <p class="auth-subtitle" data-i18n="authSubtitle">اختر الطريقة المناسبة لك للمتابعة.</p>
-      </div>
-
-      <div class="auth-options" id="authOptions">
-        <button class="auth-option" id="loginChoice" type="button">
-          <span class="option-icon login-icon" aria-hidden="true">↗</span>
-          <span class="option-copy"><strong data-i18n="login">تسجيل الدخول</strong><small data-i18n="loginHint">لديك حساب بالفعل؟ تابع من هنا.</small></span>
-          <span class="option-chevron" aria-hidden="true">←</span>
-        </button>
-        <button class="auth-option auth-option-highlight" id="signupChoice" type="button">
-          <span class="option-icon signup-icon" aria-hidden="true">＋</span>
-          <span class="option-copy"><strong data-i18n="createAccount">إنشاء حساب جديد</strong><small data-i18n="signupHint">ابدأ رحلتك مع MERCOB في خطوات بسيطة.</small></span>
-          <span class="option-chevron" aria-hidden="true">←</span>
-        </button>
-      </div>
-
-      <form class="auth-form" id="authForm" hidden novalidate>
-        <button class="form-back" id="formBack" type="button"><span aria-hidden="true">→</span><span data-i18n="chooseAnother">اختيار طريقة أخرى</span></button>
-        <h2 id="formTitle">تسجيل الدخول</h2>
-        <p class="form-intro" id="formIntro">أدخل بياناتك للمتابعة.</p>
-        <div class="signup-only" id="signupFields" hidden>
-          <label class="field-label" for="fullName" data-i18n="fullNameLabel">الاسم الكامل</label>
-          <input class="text-field" id="fullName" name="full_name" type="text" autocomplete="name" maxlength="120" placeholder="الاسم واللقب">
-          <label class="field-label" for="birthDate" data-i18n="birthDateLabel">تاريخ الميلاد</label>
-          <input class="text-field" id="birthDate" name="birth_date" type="date" autocomplete="bday">
-        </div>
-        <label class="field-label" for="identifier" data-i18n="identifierLabel">البريد الإلكتروني</label>
-        <input class="text-field" id="identifier" name="email" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com" maxlength="254" required>
-        <label class="field-label" for="password" data-i18n="passwordLabel">كلمة المرور</label>
-        <div class="password-field">
-          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="••••••••" minlength="8">
-          <button type="button" id="togglePassword" class="toggle-password" data-i18n="showPassword">إظهار</button>
-        </div>
-        <label class="remember-row" id="termsRow" hidden><input id="terms" type="checkbox"><span data-i18n="acceptTerms">أوافق على شروط الاستخدام وسياسة الخصوصية.</span></label>
-        <p class="form-message" id="formMessage" role="status" aria-live="polite"></p>
-        <button class="button button-primary form-submit" id="submitAuth" type="submit"><span id="submitText">تسجيل الدخول</span><span class="button-arrow" aria-hidden="true">←</span></button>
-        <p class="form-footnote" data-i18n="demoNote">واجهة أولية للتجربة — لم يتم ربط تسجيل الدخول بخادم بعد.</p>
-      </form>
-
+      <div class="auth-heading"><div class="mini-mark"><img src="./assets/mercob-mark.svg" alt=""></div><p class="eyebrow" data-i18n="goodToSeeYou">أهلاً بك في MERCOB</p><h1 id="authTitle" data-i18n="authTitle">كيف نبدأ؟</h1><p class="auth-subtitle" data-i18n="authSubtitle">اختر الطريقة المناسبة لك للمتابعة.</p></div>
+      <div class="auth-options" id="authOptions"><button class="auth-option" id="loginChoice" type="button"><span class="option-icon login-icon" aria-hidden="true">↗</span><span class="option-copy"><strong data-i18n="login">تسجيل الدخول</strong><small data-i18n="loginHint">لديك حساب بالفعل؟ تابع من هنا.</small></span><span class="option-chevron" aria-hidden="true">←</span></button><button class="auth-option auth-option-highlight" id="signupChoice" type="button"><span class="option-icon signup-icon" aria-hidden="true">＋</span><span class="option-copy"><strong data-i18n="createAccount">إنشاء حساب جديد</strong><small data-i18n="signupHint">ابدأ رحلتك مع MERCOB في خطوات بسيطة.</small></span><span class="option-chevron" aria-hidden="true">←</span></button></div>
+      <form class="auth-form" id="authForm" hidden novalidate><button class="form-back" id="formBack" type="button"><span aria-hidden="true">→</span><span data-i18n="chooseAnother">اختيار طريقة أخرى</span></button><h2 id="formTitle">تسجيل الدخول</h2><p class="form-intro" id="formIntro">أدخل بياناتك للمتابعة.</p><div class="signup-only" id="signupFields" hidden><label class="field-label" for="fullName" data-i18n="fullNameLabel">الاسم الكامل</label><input class="text-field" id="fullName" name="full_name" type="text" autocomplete="name" maxlength="120" placeholder="الاسم واللقب"><label class="field-label" for="birthDate" data-i18n="birthDateLabel">تاريخ الميلاد</label><input class="text-field" id="birthDate" name="birth_date" type="date" autocomplete="bday"></div><label class="field-label" for="identifier" data-i18n="identifierLabel">البريد الإلكتروني</label><input class="text-field" id="identifier" name="email" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com" maxlength="254" required><label class="field-label" for="password" data-i18n="passwordLabel">كلمة المرور</label><div class="password-field"><input id="password" name="password" type="password" autocomplete="current-password" placeholder="••••••••" minlength="8"><button type="button" id="togglePassword" class="toggle-password" data-i18n="showPassword">إظهار</button></div><label class="remember-row" id="termsRow" hidden><input id="terms" type="checkbox"><span data-i18n="acceptTerms">أوافق على شروط الاستخدام وسياسة الخصوصية.</span></label><p class="form-message" id="formMessage" role="status" aria-live="polite"></p><button class="button button-primary form-submit" id="submitAuth" type="submit"><span id="submitText">تسجيل الدخول</span><span class="button-arrow" aria-hidden="true">←</span></button><p class="form-footnote" data-i18n="demoNote">تسجيل الدخول بالبريد الإلكتروني وكلمة المرور فقط.</p></form>
       <div class="auth-footer"><span class="footer-dot"></span><span data-i18n="supportLine">خطوتك الأولى نحو مشوار أسهل.</span></div>
     </section>
-<section class="screen home-screen" id="homeScreen" hidden>
-  <div class="home-welcome"><div><p class="home-kicker">مساحتك في MERCOB</p><h1>مرحبًا <span id="homeUserName"></span></h1><p class="home-subtitle">إلى أين تريد الذهاب اليوم؟</p></div><div class="home-avatar">م</div></div>
-  <div class="home-hero"><div><span class="home-badge">● جاهز لمشوارك القادم</span><h2>مشوارك يبدأ من هنا</h2><p>حدد نقطة الانطلاق والوجهة، وابدأ طلبك بسهولة.</p></div><div class="home-route-icon">↗</div></div>
-  <form id="rideRequestForm" class="ride-request-card">
-    <div class="section-heading"><div><p class="home-section-kicker">طلب سريع</p><h2>اطلب مشوارًا</h2></div><span class="home-step">01</span></div>
-    <section class="map-picker-card" aria-labelledby="mapPickerTitle">
-      <div class="map-picker-heading"><div><strong id="mapPickerTitle">حدد المواقع على الخريطة</strong><p>اختر نقطة الانطلاق أو الوجهة ثم اضغط على الخريطة.</p></div><button type="button" id="useMyLocation" class="map-location-button">موقعي الحالي</button></div>
-      <div class="map-selection-actions"><button type="button" class="map-select-button active" id="choosePickupMap">📍 تحديد الانطلاق</button><button type="button" class="map-select-button" id="chooseDestinationMap">🏁 تحديد الوجهة</button></div>
-      <div id="rideMap" role="application" aria-label="خريطة تحديد الانطلاق والوجهة"></div>
-      <p class="map-hint" id="mapHint" role="status">اضغط على الخريطة لتحديد نقطة الانطلاق.</p>
-      <div class="map-route-summary" id="mapRouteSummary" hidden></div>
+    <section class="screen home-screen" id="homeScreen" hidden>
+      <div class="home-welcome"><div><p class="home-kicker">مساحتك في MERCOB</p><h1>مرحبًا <span id="homeUserName"></span></h1><p class="home-subtitle">إلى أين تريد الذهاب اليوم؟</p></div><div class="home-avatar">م</div></div>
+      <div class="home-hero"><div><span class="home-badge">● جاهز لمشوارك القادم</span><h2>مشوارك يبدأ من هنا</h2><p>حدد نقطة الانطلاق والوجهة، وابدأ طلبك بسهولة.</p></div><div class="home-route-icon">↗</div></div>
+      <form id="rideRequestForm" class="ride-request-card"><div class="section-heading"><div><p class="home-section-kicker">طلب سريع</p><h2>اطلب مشوارًا</h2></div><span class="home-step">01</span></div>
+        <section class="map-picker-card" aria-labelledby="mapPickerTitle"><div class="map-picker-heading"><div><strong id="mapPickerTitle">حدد المواقع على الخريطة</strong><p>اختر نقطة الانطلاق أو الوجهة ثم اضغط على الخريطة.</p></div><button type="button" id="useMyLocation" class="map-location-button">موقعي الحالي</button></div><div class="map-selection-actions"><button type="button" class="map-select-button active" id="choosePickupMap">📍 تحديد الانطلاق</button><button type="button" class="map-select-button" id="chooseDestinationMap">🏁 تحديد الوجهة</button></div><div id="rideMap" role="application" aria-label="خريطة تحديد الانطلاق والوجهة"></div><p class="map-hint" id="mapHint" role="status">اضغط على الخريطة لتحديد نقطة الانطلاق.</p><div class="map-route-summary" id="mapRouteSummary" hidden></div></section>
+        <fieldset class="location-group"><legend data-i18n="pickupSection">نقطة الانطلاق</legend><label class="field-label" for="pickupWilaya" data-i18n="wilayaLabel">الولاية</label><select class="text-field home-input location-wilaya" id="pickupWilaya" required><option value="">اختر الولاية</option></select><label class="field-label" for="pickupCommune" data-i18n="communeLabel">البلدية</label><input class="text-field home-input location-commune" id="pickupCommune" list="pickupCommuneOptions" required maxlength="120" placeholder="اختر أو اكتب اسم البلدية" autocomplete="off"><datalist id="pickupCommuneOptions"></datalist><label class="field-label" for="pickupNeighborhood" data-i18n="neighborhoodLabel">الحي / الشارع (اختياري)</label><input class="text-field home-input location-neighborhood" id="pickupNeighborhood" maxlength="160" placeholder="اكتب اسم الحي أو الشارع"></fieldset>
+        <fieldset class="location-group"><legend data-i18n="destinationSection">الوجهة</legend><label class="field-label" for="destinationWilaya" data-i18n="wilayaLabel">الولاية</label><select class="text-field home-input location-wilaya" id="destinationWilaya" required><option value="">اختر الولاية</option></select><label class="field-label" for="destinationCommune" data-i18n="communeLabel">البلدية</label><input class="text-field home-input location-commune" id="destinationCommune" list="destinationCommuneOptions" required maxlength="120" placeholder="اختر أو اكتب اسم البلدية" autocomplete="off"><datalist id="destinationCommuneOptions"></datalist><label class="field-label" for="destinationNeighborhood" data-i18n="neighborhoodLabel">الحي / الشارع (اختياري)</label><input class="text-field home-input location-neighborhood" id="destinationNeighborhood" maxlength="160" placeholder="اكتب اسم الحي أو الشارع"></fieldset>
+        <div class="home-form-row"><div><label class="field-label" for="requestedPrice">السعر المقترح (دج)</label><input class="text-field home-input" id="requestedPrice" type="number" min="1" step="1" required placeholder="مثال: 500"></div><div><label class="field-label" for="rideType">نوع الخدمة</label><select class="text-field home-input" id="rideType"><option value="standard">عادي</option><option value="comfort">مريح</option><option value="van">سيارة كبيرة</option><option value="delivery">توصيل</option></select></div></div><p class="form-message" id="rideRequestMessage" role="status" aria-live="polite"></p><button class="button button-primary" id="requestRideButton" type="submit">إرسال طلب المشوار <span class="button-arrow">←</span></button><p class="home-small-note">السعر المقترح بالدينار الجزائري، ويمكن أن يتغير حسب الاتفاق.</p>
+      </form>
+      <div class="home-section-title"><div><p class="home-section-kicker">نشاطك</p><h2>آخر الطلبات</h2></div><span class="activity-count" id="rideCount">0</span></div><div class="recent-rides" id="recentRides"><div class="empty-rides"><span class="empty-rides-icon">↗</span><strong>لا توجد طلبات بعد</strong><p>ستظهر طلباتك هنا بعد إرسال أول طلب.</p></div></div><button class="button button-quiet home-logout" id="logoutButton" type="button">تسجيل الخروج</button>
     </section>
-    <fieldset class="location-group">
-      <legend data-i18n="pickupSection">نقطة الانطلاق</legend>
-      <label class="field-label" for="pickupWilaya" data-i18n="wilayaLabel">الولاية</label>
-      <select class="text-field home-input location-wilaya" id="pickupWilaya" required><option value="">اختر الولاية</option></select>
-      <label class="field-label" for="pickupCommune" data-i18n="communeLabel">البلدية</label>
-      <input class="text-field home-input location-commune" id="pickupCommune" list="pickupCommuneOptions" required maxlength="120" placeholder="اختر أو اكتب اسم البلدية" autocomplete="off">
-      <datalist id="pickupCommuneOptions"></datalist>
-      <label class="field-label" for="pickupNeighborhood" data-i18n="neighborhoodLabel">الحي / الشارع (اختياري)</label>
-      <input class="text-field home-input location-neighborhood" id="pickupNeighborhood" maxlength="160" placeholder="اكتب اسم الحي أو الشارع">
-    </fieldset>
-    <fieldset class="location-group">
-      <legend data-i18n="destinationSection">الوجهة</legend>
-      <label class="field-label" for="destinationWilaya" data-i18n="wilayaLabel">الولاية</label>
-      <select class="text-field home-input location-wilaya" id="destinationWilaya" required><option value="">اختر الولاية</option></select>
-      <label class="field-label" for="destinationCommune" data-i18n="communeLabel">البلدية</label>
-      <input class="text-field home-input location-commune" id="destinationCommune" list="destinationCommuneOptions" required maxlength="120" placeholder="اختر أو اكتب اسم البلدية" autocomplete="off">
-      <datalist id="destinationCommuneOptions"></datalist>
-      <label class="field-label" for="destinationNeighborhood" data-i18n="neighborhoodLabel">الحي / الشارع (اختياري)</label>
-      <input class="text-field home-input location-neighborhood" id="destinationNeighborhood" maxlength="160" placeholder="اكتب اسم الحي أو الشارع">
-    </fieldset>
-    <div class="home-form-row"><div><label class="field-label" for="requestedPrice">السعر المقترح (دج)</label><input class="text-field home-input" id="requestedPrice" type="number" min="1" step="1" required placeholder="مثال: 500"></div>
-    <div><label class="field-label" for="rideType">نوع الخدمة</label><select class="text-field home-input" id="rideType"><option value="standard">عادي</option><option value="comfort">مريح</option><option value="van">سيارة كبيرة</option><option value="delivery">توصيل</option></select></div></div>
-    <p class="form-message" id="rideRequestMessage" role="status" aria-live="polite"></p><button class="button button-primary" id="requestRideButton" type="submit">إرسال طلب المشوار <span class="button-arrow">←</span></button>
-    <p class="home-small-note">السعر المقترح بالدينار الجزائري، ويمكن أن يتغير حسب الاتفاق.</p>
-  </form>
-  <div class="home-section-title"><div><p class="home-section-kicker">نشاطك</p><h2>آخر الطلبات</h2></div><span class="activity-count" id="rideCount">0</span></div>
-  <div class="recent-rides" id="recentRides"><div class="empty-rides"><span class="empty-rides-icon">↗</span><strong>لا توجد طلبات بعد</strong><p>ستظهر طلباتك هنا بعد إرسال أول طلب.</p></div></div>
-  <button class="button button-quiet home-logout" id="logoutButton" type="button">تسجيل الخروج</button>
-</section>
   </main>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="./app.js"></script>
-  <script src="./rider-features.js"></script>
-  <script type="module" src="./supabase-client.js"></script>
+  <script src="./app.js"></script><script src="./rider-features.js"></script><script type="module" src="./supabase-client.js"></script><script src="./navigation.js"></script>
 </body>
 </html>
