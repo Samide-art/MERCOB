@@ -31,7 +31,8 @@ const translations = {
     signupError:"تعذّر إنشاء الحساب. تحقق من البيانات وإعدادات Supabase.",
     signupDisabled:"تسجيل البريد الإلكتروني معطّل في Supabase. فعّل Email signups من Authentication ← Sign In / Providers ← Email ثم احفظ التغييرات.",
     loginError:"تعذّر تسجيل الدخول. تحقق من بياناتك.",
-    signedIn:"أنت مسجل الدخول الآن.", pickupSection:"نقطة الانطلاق", destinationSection:"الوجهة", wilayaLabel:"الولاية", communeLabel:"البلدية", neighborhoodLabel:"الحي / الشارع (اختياري)", chooseWilaya:"اختر الولاية", communePlaceholder:"اختر أو اكتب اسم البلدية", neighborhoodPlaceholder:"اكتب اسم الحي أو الشارع"
+    signedIn:"أنت مسجل الدخول الآن.", pickupSection:"نقطة الانطلاق", destinationSection:"الوجهة", wilayaLabel:"الولاية", communeLabel:"البلدية", neighborhoodLabel:"الحي / الشارع (اختياري)", chooseWilaya:"اختر الولاية", communePlaceholder:"اختر أو اكتب اسم البلدية", neighborhoodPlaceholder:"اكتب اسم الحي أو الشارع",languageSwitchLabel:"تغيير اللغة",brandHome:"MERCOB — الصفحة الرئيسية",
+    homeKicker:"مساحتك في MERCOB",welcomeHome:"مرحبًا",homeSubtitle:"إلى أين تريد الذهاب اليوم؟",readyBadge:"جاهز لمشوارك القادم",homeHeroTitle:"مشوارك يبدأ من هنا",homeHeroText:"حدد نقطة الانطلاق والوجهة، وابدأ طلبك بسهولة.",quickRequest:"طلب سريع",requestRide:"اطلب مشوارًا",mapTitle:"حدد المواقع على الخريطة",mapHelp:"اختر نقطة الانطلاق أو الوجهة ثم اضغط على الخريطة.",myLocation:"موقعي الحالي",choosePickupMap:"تحديد الانطلاق",chooseDestinationMap:"تحديد الوجهة",mapAria:"خريطة تحديد الانطلاق والوجهة",mapHintPickup:"اضغط على الخريطة لتحديد نقطة الانطلاق.",priceLabel:"السعر المقترح (دج)",pricePlaceholder:"مثال: 500",serviceType:"نوع الخدمة",rideStandard:"عادي",rideComfort:"مريح",rideVan:"سيارة كبيرة",rideDelivery:"توصيل",submitRide:"إرسال طلب المشوار",priceNote:"السعر المقترح بالدينار الجزائري، ويمكن أن يتغير حسب الاتفاق.",activity:"نشاطك",recentRides:"آخر الطلبات",noRides:"لا توجد طلبات بعد",noRidesHint:"ستظهر طلباتك هنا بعد إرسال أول طلب.",logout:"تسجيل الخروج",statusRequested:"قيد البحث عن سائق",statusOffered:"توجد عروض",statusAccepted:"تم قبول الطلب",statusDriverArriving:"السائق في الطريق",statusInProgress:"المشوار جارٍ",statusCompleted:"مكتمل",statusCancelled:"ملغي",mapLoading:"جارٍ تحميل الخريطة. تحقق من اتصال الإنترنت ثم أعد تحميل الصفحة.",mapNoLocationSupport:"المتصفح لا يدعم تحديد الموقع.",mapLocating:"جارٍ تحديد موقعك…",mapLocationFailed:"تعذر تحديد موقعك. اسمح بالوصول للموقع أو اختر نقطة على الخريطة.",mapResolvingPickup:"جارٍ تحديد عنوان نقطة الانطلاق…",mapResolvingDestination:"جارٍ تحديد عنوان الوجهة…",mapPickupFilled:"تم ملء ولاية وبلدية نقطة الانطلاق تلقائيًا. يمكنك تعديل العنوان قبل إرسال الطلب.",mapDestinationFilled:"تم ملء ولاية وبلدية الوجهة تلقائيًا. يمكنك تعديل العنوان قبل إرسال الطلب.",mapPickupReview:"تم تحديد موقع الانطلاق. راجع الولاية والبلدية وأكمل أي خانة لم تُملأ تلقائيًا.",mapDestinationReview:"تم تحديد الوجهة. راجع الولاية والبلدية وأكمل أي خانة لم تُملأ تلقائيًا.",mapAddressFailed:"تم تحديد الموقع، لكن تعذر قراءة العنوان تلقائيًا. أدخل الولاية والبلدية يدويًا.",mapPickupManual:"تم تحديد نقطة الانطلاق. تعذر جلب العنوان تلقائيًا؛ أدخل الولاية والبلدية يدويًا.",mapDestinationManual:"تم تحديد الوجهة. تعذر جلب العنوان تلقائيًا؛ أدخل الولاية والبلدية يدويًا.",mapNotSet:"لم تُحدد بعد",mapPickup:"الانطلاق",mapDestination:"الوجهة",mapDirectDistance:"المسافة المباشرة",mapCalculating:"جارٍ حساب مسار الطريق…",mapRoadDistance:"مسافة الطريق التقريبية",mapMinutes:"دقيقة قيادة تقديرية",mapRouteFailed:"تعذر حساب مسار الطرق الآن.",mapChoosePickup:"اضغط على الخريطة لتحديد نقطة الانطلاق.",mapChooseDestination:"اضغط على الخريطة لتحديد الوجهة.",mapBothSelected:"تم تحديد النقطتين. يمكنك تحريك العلامات لتعديل الموقع.",mapPickupSelected:"تم تحديد نقطة الانطلاق. اختر الوجهة الآن.",mapDestinationSelected:"تم تحديد الوجهة. اختر نقطة الانطلاق إذا لم تحددها بعد.",rideValidation:"اختر ولاية واكتب البلدية للانطلاق والوجهة، ثم أدخل سعرًا صحيحًا.",rideSaved:"تم حفظ طلبك بنجاح.",rideSaveFailed:"تعذر حفظ الطلب: ",logoutFailed:"تعذر تسجيل الخروج. تحقق من الاتصال ثم حاول مجددًا.",mapPickupPopup:"نقطة الانطلاق",mapDestinationPopup:"الوجهة",ridePriceUnit:"دج"
   },
   fr: {
     langLabel:"Français", fast:"Rapide et simple", yourChoice:"À votre choix", eyebrow:"Déplacez-vous avec MERCOB",
@@ -63,7 +64,8 @@ const translations = {
     phoneConfirm:"Pour créer un compte sans SMS, désactivez Confirm phone dans les paramètres Supabase Auth.",
     loginSuccess:"Connexion réussie.", signupError:"Inscription impossible. Vérifiez les données et Supabase.",
     signupDisabled:"Les inscriptions par e-mail sont désactivées dans Supabase. Activez Email signups dans Authentication ← Sign In / Providers ← Email, puis enregistrez les changements.",
-    loginError:"Connexion impossible. Vérifiez vos identifiants.", signedIn:"Vous êtes connecté.", pickupSection:"Point de départ", destinationSection:"Destination", wilayaLabel:"Wilaya", communeLabel:"Commune", neighborhoodLabel:"Quartier / rue (facultatif)", chooseWilaya:"Choisir la wilaya", communePlaceholder:"Choisissez ou saisissez une commune", neighborhoodPlaceholder:"Saisissez le quartier ou la rue"
+    loginError:"Connexion impossible. Vérifiez vos identifiants.", signedIn:"Vous êtes connecté.", pickupSection:"Point de départ", destinationSection:"Destination", wilayaLabel:"Wilaya", communeLabel:"Commune", neighborhoodLabel:"Quartier / rue (facultatif)", chooseWilaya:"Choisir la wilaya", communePlaceholder:"Choisissez ou saisissez une commune", neighborhoodPlaceholder:"Saisissez le quartier ou la rue",languageSwitchLabel:"Changer de langue",brandHome:"MERCOB — Accueil",
+    homeKicker:"Votre espace MERCOB",welcomeHome:"Bonjour",homeSubtitle:"Où souhaitez-vous aller aujourd’hui ?",readyBadge:"Prêt pour votre prochain trajet",homeHeroTitle:"Votre trajet commence ici",homeHeroText:"Définissez le départ et la destination, puis commandez facilement.",quickRequest:"Demande rapide",requestRide:"Commander un trajet",mapTitle:"Choisissez les lieux sur la carte",mapHelp:"Choisissez le départ ou la destination, puis touchez la carte.",myLocation:"Ma position",choosePickupMap:"Choisir le départ",chooseDestinationMap:"Choisir la destination",mapAria:"Carte de sélection du départ et de la destination",mapHintPickup:"Touchez la carte pour définir le point de départ.",priceLabel:"Prix proposé (DZD)",pricePlaceholder:"Ex. : 500",serviceType:"Type de service",rideStandard:"Standard",rideComfort:"Confort",rideVan:"Grand véhicule",rideDelivery:"Livraison",submitRide:"Envoyer la demande",priceNote:"Le prix est proposé en dinars algériens et peut varier selon l’accord.",activity:"Votre activité",recentRides:"Demandes récentes",noRides:"Aucun trajet pour le moment",noRidesHint:"Vos demandes apparaîtront ici après votre première commande.",logout:"Déconnexion",statusRequested:"Recherche d’un chauffeur",statusOffered:"Offres reçues",statusAccepted:"Trajet accepté",statusDriverArriving:"Le chauffeur est en route",statusInProgress:"Trajet en cours",statusCompleted:"Terminé",statusCancelled:"Annulé",mapLoading:"Impossible de charger la carte. Vérifiez votre connexion puis actualisez la page.",mapNoLocationSupport:"Votre navigateur ne prend pas en charge la géolocalisation.",mapLocating:"Localisation en cours…",mapLocationFailed:"Position introuvable. Autorisez la géolocalisation ou choisissez un point sur la carte.",mapResolvingPickup:"Recherche de l’adresse de départ…",mapResolvingDestination:"Recherche de l’adresse de destination…",mapPickupFilled:"La wilaya et la commune de départ ont été remplies automatiquement. Vous pouvez modifier l’adresse avant l’envoi.",mapDestinationFilled:"La wilaya et la commune de destination ont été remplies automatiquement. Vous pouvez modifier l’adresse avant l’envoi.",mapPickupReview:"Position de départ définie. Vérifiez la wilaya et la commune et complétez les champs manquants.",mapDestinationReview:"Destination définie. Vérifiez la wilaya et la commune et complétez les champs manquants.",mapAddressFailed:"Position définie, mais l’adresse n’a pas pu être récupérée. Saisissez la wilaya et la commune manuellement.",mapPickupManual:"Départ défini. Adresse introuvable automatiquement ; saisissez la wilaya et la commune manuellement.",mapDestinationManual:"Destination définie. Adresse introuvable automatiquement ; saisissez la wilaya et la commune manuellement.",mapNotSet:"Non défini",mapPickup:"Départ",mapDestination:"Destination",mapDirectDistance:"Distance à vol d’oiseau",mapCalculating:"Calcul de l’itinéraire…",mapRoadDistance:"Distance routière estimée",mapMinutes:"min de conduite estimées",mapRouteFailed:"Impossible de calculer l’itinéraire pour le moment.",mapChoosePickup:"Touchez la carte pour définir le départ.",mapChooseDestination:"Touchez la carte pour définir la destination.",mapBothSelected:"Les deux points sont définis. Vous pouvez déplacer les marqueurs.",mapPickupSelected:"Départ défini. Choisissez maintenant la destination.",mapDestinationSelected:"Destination définie. Choisissez le départ si nécessaire.",rideValidation:"Choisissez les wilayas et saisissez les communes du départ et de la destination, puis un prix valide.",rideSaved:"Votre demande a bien été enregistrée.",rideSaveFailed:"Impossible d’enregistrer la demande : ",logoutFailed:"Déconnexion impossible. Vérifiez votre connexion puis réessayez.",mapPickupPopup:"Départ",mapDestinationPopup:"Destination",ridePriceUnit:"DZD"
   }
 };
 let language="ar", authMode="login";
@@ -81,6 +83,11 @@ function applyLanguage(){
  $("pickupNeighborhood").placeholder=t("neighborhoodPlaceholder");$("destinationNeighborhood").placeholder=t("neighborhoodPlaceholder");
  document.querySelectorAll(".location-wilaya").forEach(select=>{if(select.options.length)select.options[0].textContent=t("chooseWilaya");});
  updateFormCopy();
+ document.querySelectorAll("[data-i18n-placeholder]").forEach(node=>{const key=node.dataset.i18nPlaceholder;if(translations[language][key])node.placeholder=translations[language][key];});
+ document.querySelectorAll("[data-i18n-aria]").forEach(node=>{const key=node.dataset.i18nAria;if(translations[language][key])node.setAttribute("aria-label",translations[language][key]);});
+ const rideType=$("rideType");if(rideType){["rideStandard","rideComfort","rideVan","rideDelivery"].forEach((key,i)=>{if(rideType.options[i])rideType.options[i].textContent=t(key);});}
+ if(rideMap){updateMapTargetButtons();updateMapSummary();if(pickupMapMarker)pickupMapMarker.setPopupContent(t("mapPickupPopup"));if(destinationMapMarker)destinationMapMarker.setPopupContent(t("mapDestinationPopup"));}
+ document.dispatchEvent(new CustomEvent("mercob:language-changed",{detail:{language}}));
 }
 function showAuth(){if(homeScreen)homeScreen.hidden=true;welcomeScreen.hidden=true;authScreen.hidden=false;authScreen.classList.add("is-active");authOptions.hidden=false;authForm.hidden=true;window.scrollTo({top:0,behavior:"smooth"});}
 function showWelcome(){if(homeScreen)homeScreen.hidden=true;authScreen.hidden=true;welcomeScreen.hidden=false;welcomeScreen.classList.add("is-active");window.scrollTo({top:0,behavior:"smooth"});}
@@ -99,7 +106,7 @@ async function loadDashboard(user){
   const {data,error}=await client.from("rides").select("id,pickup_address,destination_address,requested_price,agreed_price,status").eq("rider_id",user.id).order("created_at",{ascending:false}).limit(4);
   if(error)throw error;$("rideCount").textContent=String(data?.length||0);
   if(!data?.length)return;
-  const statuses={requested:"قيد البحث عن سائق",offered:"توجد عروض",accepted:"تم قبول الطلب",driver_arriving:"السائق في الطريق",in_progress:"المشوار جارٍ",completed:"مكتمل",cancelled:"ملغي"};
+  const statuses={requested:t("statusRequested"),offered:t("statusOffered"),accepted:t("statusAccepted"),driver_arriving:t("statusDriverArriving"),in_progress:t("statusInProgress"),completed:t("statusCompleted"),cancelled:t("statusCancelled")};
   $("recentRides").innerHTML=data.map(r=>'<article class="ride-item"><div class="ride-item-icon">↗</div><div class="ride-item-main"><strong>'+escapeHtml(r.destination_address)+'</strong><p>'+escapeHtml(r.pickup_address)+'</p><span class="ride-status">'+(statuses[r.status]||escapeHtml(r.status))+'</span></div><div class="ride-item-price">'+Number(r.agreed_price||r.requested_price||0).toLocaleString('fr-DZ')+' <small>دج</small></div></article>').join("");
  }catch(e){console.warn("MERCOB dashboard data:",e);}
 }
@@ -187,7 +194,7 @@ async function fillLocationFieldsFromCoordinates(target,point){
  const wilayaSelect=$(isPickup?"pickupWilaya":"destinationWilaya");
  const communeInput=$(isPickup?"pickupCommune":"destinationCommune");
  const neighborhoodInput=$(isPickup?"pickupNeighborhood":"destinationNeighborhood");
- setMapHint(isPickup?"جارٍ تحديد عنوان نقطة الانطلاق…":"جارٍ تحديد عنوان الوجهة…");
+ setMapHint(t(isPickup?"mapResolvingPickup":"mapResolvingDestination"));
  try{
   const response=await fetch("https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat="+encodeURIComponent(point.lat)+"&lon="+encodeURIComponent(point.lng)+"&zoom=16&addressdetails=1",{headers:{Accept:"application/json"}});
   if(!response.ok)throw new Error("Reverse geocoding unavailable");
@@ -211,29 +218,29 @@ async function fillLocationFieldsFromCoordinates(target,point){
   }
   if(neighborhoodName)neighborhoodInput.value=neighborhoodName;
   if(matchedWilaya&&matchedCommune){
-   setMapHint(isPickup?"تم ملء ولاية وبلدية نقطة الانطلاق تلقائيًا. يمكنك تعديل العنوان قبل إرسال الطلب.":"تم ملء ولاية وبلدية الوجهة تلقائيًا. يمكنك تعديل العنوان قبل إرسال الطلب.");
+   setMapHint(t(isPickup?"mapPickupFilled":"mapDestinationFilled"));
   }else if(data.display_name){
-   setMapHint(isPickup?"تم تحديد موقع الانطلاق. راجع الولاية والبلدية وأكمل أي خانة لم تُملأ تلقائيًا.":"تم تحديد الوجهة. راجع الولاية والبلدية وأكمل أي خانة لم تُملأ تلقائيًا.");
+   setMapHint(t(isPickup?"mapPickupReview":"mapDestinationReview"));
   }else{
-   setMapHint("تم تحديد الموقع، لكن تعذر قراءة العنوان تلقائيًا. أدخل الولاية والبلدية يدويًا.");
+   setMapHint(t("mapAddressFailed"));
   }
  }catch(error){
   if(requestId!==mapAddressRequestIds[target])return;
   console.warn("Could not resolve map coordinates to an address",error);
-  setMapHint(isPickup?"تم تحديد نقطة الانطلاق. تعذر جلب العنوان تلقائيًا؛ أدخل الولاية والبلدية يدويًا.":"تم تحديد الوجهة. تعذر جلب العنوان تلقائيًا؛ أدخل الولاية والبلدية يدويًا.");
+  setMapHint(t(isPickup?"mapPickupManual":"mapDestinationManual"));
  }
 }
 function setMapHint(message){const el=$("mapHint");if(el)el.textContent=message;}
 async function updateMapSummary(){
  const summary=$("mapRouteSummary");if(!summary)return;
- const fmt=p=>p? p.lat.toFixed(5)+", "+p.lng.toFixed(5):"لم تُحدد بعد";
+ const fmt=p=>p? p.lat.toFixed(5)+", "+p.lng.toFixed(5):t("mapNotSet");
  summary.hidden=false;
- summary.innerHTML='<div><strong>الانطلاق</strong><span>'+fmt(pickupCoordinates)+'</span></div><div><strong>الوجهة</strong><span>'+fmt(destinationCoordinates)+'</span></div>';
+ summary.innerHTML='<div><strong>'+t("mapPickup")+'</strong><span>'+fmt(pickupCoordinates)+'</span></div><div><strong>'+t("mapDestination")+'</strong><span>'+fmt(destinationCoordinates)+'</span></div>';
  const requestId=++routeRequestId;
  if(rideRouteLine&&rideMap){rideMap.removeLayer(rideRouteLine);rideRouteLine=null;}
  if(!pickupCoordinates||!destinationCoordinates||!rideMap)return;
  const straightDistance=rideMap.distance([pickupCoordinates.lat,pickupCoordinates.lng],[destinationCoordinates.lat,destinationCoordinates.lng])/1000;
- summary.innerHTML+='<p>المسافة المباشرة: '+straightDistance.toFixed(1)+' كم. جارٍ حساب مسار الطريق…</p>';
+ summary.innerHTML+='<p>'+t("mapDirectDistance")+": "+straightDistance.toFixed(1)+" km. "+t("mapCalculating")+"</p>";
  try{
   const coords=pickupCoordinates.lng+","+pickupCoordinates.lat+";"+destinationCoordinates.lng+","+destinationCoordinates.lat;
   const response=await fetch("https://router.project-osrm.org/route/v1/driving/"+coords+"?overview=full&geometries=geojson");
@@ -241,27 +248,27 @@ async function updateMapSummary(){
   const data=await response.json();if(requestId!==routeRequestId)return;
   const route=data.routes?.[0];if(!route)throw new Error("No route");
   rideRouteLine=L.geoJSON(route.geometry,{style:{color:"#f97316",weight:5,opacity:.85}}).addTo(rideMap);
-  summary.lastElementChild.textContent="مسافة الطريق التقريبية: "+(route.distance/1000).toFixed(1)+" كم · "+Math.round(route.duration/60)+" دقيقة قيادة تقديرية.";
+  summary.lastElementChild.textContent=t("mapRoadDistance")+": "+(route.distance/1000).toFixed(1)+" km · "+Math.round(route.duration/60)+" "+t("mapMinutes")+".";
   rideMap.fitBounds(rideRouteLine.getBounds().pad(0.15),{maxZoom:14});
  }catch(error){
-  console.warn("Route calculation unavailable",error);if(requestId===routeRequestId)summary.lastElementChild.textContent="تعذر حساب مسار الطرق الآن. المسافة المباشرة: "+straightDistance.toFixed(1)+" كم.";
+  console.warn("Route calculation unavailable",error);if(requestId===routeRequestId)summary.lastElementChild.textContent=t("mapRouteFailed")+" "+t("mapDirectDistance")+": "+straightDistance.toFixed(1)+" km.";
  }
 }
 function updateMapTargetButtons(){
  $("choosePickupMap")?.classList.toggle("active",activeMapTarget==="pickup");
  $("chooseDestinationMap")?.classList.toggle("active",activeMapTarget==="destination");
- setMapHint(activeMapTarget==="pickup"?"اضغط على الخريطة لتحديد نقطة الانطلاق.":"اضغط على الخريطة لتحديد الوجهة.");
+ setMapHint(t(activeMapTarget==="pickup"?"mapChoosePickup":"mapChooseDestination"));
 }
 function setMapPoint(target,latlng){
  const point={lat:Number(latlng.lat.toFixed(6)),lng:Number(latlng.lng.toFixed(6))};
  if(target==="pickup"){
   pickupCoordinates=point;
-  if(!pickupMapMarker)pickupMapMarker=L.marker(latlng,{draggable:true}).addTo(rideMap).bindPopup("نقطة الانطلاق");
+  if(!pickupMapMarker)pickupMapMarker=L.marker(latlng,{draggable:true}).addTo(rideMap).bindPopup(t("mapPickupPopup"));
   else pickupMapMarker.setLatLng(latlng);
   pickupMapMarker.off("dragend").on("dragend",()=>{const p=pickupMapMarker.getLatLng();pickupCoordinates={lat:Number(p.lat.toFixed(6)),lng:Number(p.lng.toFixed(6))};updateMapSummary();fillLocationFieldsFromCoordinates("pickup",pickupCoordinates);});
  }else{
   destinationCoordinates=point;
-  if(!destinationMapMarker)destinationMapMarker=L.marker(latlng,{draggable:true}).addTo(rideMap).bindPopup("الوجهة");
+  if(!destinationMapMarker)destinationMapMarker=L.marker(latlng,{draggable:true}).addTo(rideMap).bindPopup(t("mapDestinationPopup"));
   else destinationMapMarker.setLatLng(latlng);
   destinationMapMarker.off("dragend").on("dragend",()=>{const p=destinationMapMarker.getLatLng();destinationCoordinates={lat:Number(p.lat.toFixed(6)),lng:Number(p.lng.toFixed(6))};updateMapSummary();fillLocationFieldsFromCoordinates("destination",destinationCoordinates);});
  }
@@ -270,12 +277,12 @@ function setMapPoint(target,latlng){
  if(pickupCoordinates&&destinationCoordinates){
   const bounds=L.latLngBounds([[pickupCoordinates.lat,pickupCoordinates.lng],[destinationCoordinates.lat,destinationCoordinates.lng]]);
   rideMap.fitBounds(bounds.pad(0.25),{maxZoom:14});
-  setMapHint("تم تحديد النقطتين. يمكنك تحريك العلامات لتعديل الموقع.");
- }else setMapHint(target==="pickup"?"تم تحديد نقطة الانطلاق. اختر الوجهة الآن.":"تم تحديد الوجهة. اختر نقطة الانطلاق إذا لم تحددها بعد.");
+  setMapHint(t("mapBothSelected"));
+ }else setMapHint(t(target==="pickup"?"mapPickupSelected":"mapDestinationSelected"));
 }
 function initRideMap(){
  const el=$("rideMap");
- if(!el||!window.L){if(el)el.innerHTML='<p class="map-unavailable">تعذر تحميل الخريطة. تحقق من اتصال الإنترنت ثم أعد تحميل الصفحة.</p>';return;}
+ if(!el||!window.L){if(el)el.innerHTML='<p class="map-unavailable">'+t("mapLoading")+"</p>";return;}
  if(rideMap){rideMap.invalidateSize();return;}
  rideMap=L.map(el,{scrollWheelZoom:false}).setView([34.6728,3.2631],11);
  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'}).addTo(rideMap);
@@ -283,12 +290,12 @@ function initRideMap(){
  $("choosePickupMap").addEventListener("click",()=>{activeMapTarget="pickup";updateMapTargetButtons();});
  $("chooseDestinationMap").addEventListener("click",()=>{activeMapTarget="destination";updateMapTargetButtons();});
  $("useMyLocation").addEventListener("click",()=>{
-  if(!navigator.geolocation){setMapHint("المتصفح لا يدعم تحديد الموقع.");return;}
-  setMapHint("جارٍ تحديد موقعك…");
+  if(!navigator.geolocation){setMapHint(t("mapNoLocationSupport"));return;}
+  setMapHint(t("mapLocating"));
   navigator.geolocation.getCurrentPosition(position=>{
    const p={lat:position.coords.latitude,lng:position.coords.longitude};
    rideMap.setView(p,16);setMapPoint(activeMapTarget,p);
-  },error=>{console.warn("Geolocation unavailable",error);setMapHint("تعذر تحديد موقعك. اسمح بالوصول للموقع أو اختر نقطة على الخريطة.");},{enableHighAccuracy:true,timeout:10000,maximumAge:60000});
+  },error=>{console.warn("Geolocation unavailable",error);setMapHint(t("mapLocationFailed"));},{enableHighAccuracy:true,timeout:10000,maximumAge:60000});
  });
  updateMapTargetButtons();
 }
@@ -305,7 +312,7 @@ $("destinationWilaya").addEventListener("change",()=>{$("destinationCommune").va
 $("logoutButton").addEventListener("click",async()=>{
  const client=supabaseClient();if(!client)return;const button=$("logoutButton");button.disabled=true;
  try{const {error}=await client.auth.signOut();if(error)throw error;showWelcome();}
- catch(error){console.error("MERCOB sign out error:",error);$("rideRequestMessage").textContent=language==="ar"?"تعذر تسجيل الخروج. تحقق من الاتصال ثم حاول مجددًا.":"Déconnexion impossible. Vérifiez votre connexion puis réessayez.";}
+ catch(error){console.error("MERCOB sign out error:",error);$("rideRequestMessage").textContent=t("logoutFailed");}
  finally{button.disabled=false;}
 });
 $("rideRequestForm").addEventListener("submit",async event=>{
@@ -313,15 +320,15 @@ $("rideRequestForm").addEventListener("submit",async event=>{
  if(!client){message.textContent=t("authNotReady");return;}
  const {data:{user},error:authError}=await client.auth.getUser();if(authError||!user){message.textContent=t("authNotReady");return;}
  const pW=$("pickupWilaya"),dW=$("destinationWilaya"),pC=$("pickupCommune").value.trim(),dC=$("destinationCommune").value.trim(),pN=$("pickupNeighborhood").value.trim(),dN=$("destinationNeighborhood").value.trim(),price=Number($("requestedPrice").value);
- if(!pW.value||!pC||!dW.value||!dC||!Number.isFinite(price)||price<=0){message.textContent=language==="ar"?"اختر ولاية واكتب البلدية للانطلاق والوجهة، ثم أدخل سعرًا صحيحًا.":"Choisissez les wilayas et saisissez les communes du départ et de la destination, puis un prix valide.";return;}
+ if(!pW.value||!pC||!dW.value||!dC||!Number.isFinite(price)||price<=0){message.textContent=t("rideValidation");return;}
  const pWilaya=pW.selectedOptions[0].textContent.trim(),dWilaya=dW.selectedOptions[0].textContent.trim();
  const pickup=[pN,pC,pWilaya].filter(Boolean).join("، "),destination=[dN,dC,dWilaya].filter(Boolean).join("، ");
  button.disabled=true;
  try{
   const {error}=await client.from("rides").insert({rider_id:user.id,pickup_address:pickup,destination_address:destination,pickup_latitude:pickupCoordinates?.lat??null,pickup_longitude:pickupCoordinates?.lng??null,destination_latitude:destinationCoordinates?.lat??null,destination_longitude:destinationCoordinates?.lng??null,requested_price:price,currency:"DZD",ride_type:$("rideType").value,payment_method:"cash"});
-  if(error)throw error;message.textContent=language==="ar"?"تم حفظ طلبك بنجاح.":"Votre demande a été enregistrée.";message.classList.add("success");
+  if(error)throw error;message.textContent=t("rideSaved");message.classList.add("success");
   $("rideRequestForm").reset();pickupCoordinates=null;destinationCoordinates=null;if(pickupMapMarker){rideMap.removeLayer(pickupMapMarker);pickupMapMarker=null;}if(destinationMapMarker){rideMap.removeLayer(destinationMapMarker);destinationMapMarker=null;}updateMapSummary();refreshCommuneLists();await loadDashboard(user);
- }catch(error){console.error("MERCOB ride request error:",error);message.textContent=(language==="ar"?"تعذر حفظ الطلب: ":"Impossible d’enregistrer la demande : ")+(error?.message||"");}
+ }catch(error){console.error("MERCOB ride request error:",error);message.textContent=t("rideSaveFailed")+(error?.message||"");}
  finally{button.disabled=false;}
 });
 loadLocationData();
