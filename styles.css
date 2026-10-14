@@ -330,3 +330,63 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media(min-width:700px){body{padding:22px;background:#F0EFEB}.app-shell{box-shadow:0 16px 48px rgba(24,43,58,.07);border:1px solid rgba(225,223,216,.8)}.welcome-art{height:270px}}
 @media(max-width:420px){.home-screen{gap:13px}.home-hero{padding:17px 15px}.home-hero h2{font-size:17px}.ride-request-card{padding:14px 11px 12px}.map-picker-card{padding:10px}#rideMap{height:245px}.location-group{padding:10px}}
 @media(prefers-reduced-motion:no-preference){.button-primary,.auth-option,.map-select-button,.map-location-button{transition:background-color .16s ease,border-color .16s ease,box-shadow .16s ease,transform .16s ease}.button-primary:active,.map-select-button:active{transform:translateY(1px)}}
+
+
+/* MERCOB mobile-first layout refinement: fit the journey, not the browser chrome */
+:root{--orange:#E85B20;--orange-dark:#C94A16;--navy:#182B3A;--mist:#F5F7FA;--line:#E4E8ED}
+html,body{min-height:100%;background:#F5F7FA}
+body{margin:0;padding:0!important;background:#F5F7FA!important}
+.app-shell{width:100%;max-width:680px;margin:0 auto;border:0!important;border-radius:0!important;box-shadow:none!important;background:#F7F9FC!important;min-height:100dvh;overflow-x:clip}
+.brand{min-width:0}
+.brand-word{font-size:clamp(17px,4.8vw,22px);line-height:1.15}
+.language-switch{white-space:nowrap;flex-shrink:0}
+#mercobTopNav{position:sticky!important;top:0!important;z-index:80!important;max-width:100%!important;margin:12px 16px 0!important;padding:8px!important;border:1px solid #E5EAF0!important;border-radius:18px!important;background:rgba(255,255,255,.96)!important;box-shadow:0 5px 18px rgba(24,43,58,.045)!important;backdrop-filter:blur(12px)}
+#mercobTopNav .mn-main{gap:4px!important}
+#mercobTopNav .mn-main button{min-height:54px!important;min-width:0!important;padding:8px 5px!important;border-radius:12px!important;font-size:11px!important;line-height:1.35!important;white-space:normal!important}
+#mercobTopNav .mn-icon{width:18px!important;height:18px!important;flex-basis:18px!important}
+#mercobTopNav .mn-main button.active{background:#F9EEE7!important;color:#A94720!important;box-shadow:none!important}
+.home-screen{padding:25px 18px calc(26px + env(safe-area-inset-bottom))!important;gap:18px!important}
+.home-welcome{gap:12px!important}
+.home-welcome h1{font-size:clamp(24px,6vw,30px)!important;line-height:1.35!important}
+.home-subtitle{font-size:13px!important;line-height:1.75!important}
+.home-avatar{width:52px!important;height:52px!important;border-radius:17px!important}
+.home-hero{min-height:0!important;padding:21px 19px!important;border-radius:19px!important;background:#203747!important}
+.home-hero h2{font-size:clamp(18px,4.7vw,22px)!important;line-height:1.5!important}
+.home-hero p{font-size:12px!important;line-height:1.8!important;max-width:95%!important}
+.home-route-icon{width:43px!important;height:43px!important;flex-shrink:0}
+.ride-request-card{padding:18px 15px 16px!important;border-radius:19px!important;border-color:#E5EAF0!important;box-shadow:0 4px 18px rgba(24,43,58,.035)!important}
+.section-heading h2,.home-section-title h2{font-size:18px!important}
+.map-picker-card{padding:12px!important;margin:12px 0!important;border-radius:15px!important;background:#F2F6FB!important;border-color:#EAF0F6!important}
+.map-picker-heading{gap:9px!important}
+.map-picker-heading strong{font-size:13px!important;line-height:1.55!important}
+.map-picker-heading p,.map-hint{font-size:11px!important;line-height:1.7!important}
+.map-location-button{min-height:44px!important;background:#fff!important;border-radius:11px!important}
+.map-selection-actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}
+.map-select-button{min-height:48px!important;padding:10px 8px!important;border-radius:12px!important;font-size:12px!important;line-height:1.45!important}
+.map-select-button.active{background:#E85B20!important;color:#fff!important;border-color:#E85B20!important;box-shadow:none!important}
+#rideMap{height:clamp(190px,30dvh,270px)!important;min-height:190px!important;max-height:270px!important;width:100%!important;border-radius:13px!important;overflow:hidden!important}
+.map-route-summary{gap:7px!important}
+.map-route-summary>div{min-width:0!important;padding:9px!important}
+.location-group{padding:12px!important;border-radius:13px!important}
+.home-input{min-height:46px!important;font-size:13px!important}
+#requestRideButton{min-height:50px!important;width:100%!important;border-radius:12px!important}
+.recent-rides{gap:9px!important}
+.ride-item{padding:12px!important;border-radius:13px!important}
+.rider-features{margin:0 18px 18px!important;padding:16px!important;border-radius:17px!important}
+.rf-panel input:not([type=checkbox]),.rf-panel textarea,.rf-panel select{font-size:13px!important;min-height:46px!important}
+#mercobBottomNav{position:sticky!important;bottom:0!important;z-index:70!important}
+@media(max-width:380px){
+ #mercobTopNav{margin:9px 10px 0!important;padding:6px!important}
+ #mercobTopNav .mn-main button{font-size:10px!important;padding:7px 3px!important}
+ .home-screen{padding:20px 12px calc(22px + env(safe-area-inset-bottom))!important;gap:14px!important}
+ .home-hero{padding:17px 15px!important}
+ .ride-request-card{padding:14px 10px!important}
+ .map-picker-card{padding:9px!important}
+ #rideMap{height:200px!important;min-height:180px!important}
+}
+@media(min-width:700px){
+ body{padding:0!important}
+ .app-shell{max-width:680px!important;margin:20px auto!important;border:1px solid #E5EAF0!important;border-radius:26px!important;overflow:hidden!important;box-shadow:0 18px 55px rgba(24,43,58,.08)!important;min-height:calc(100dvh - 40px)}
+ .home-screen{padding:28px 26px 32px!important}
+ #mercobTopNav{margin:14px 24px 0!important}
+}
