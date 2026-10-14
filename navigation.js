@@ -138,6 +138,73 @@ function style(){
   #mercobTopNav .mn-primary>button,
   #mercobTopNav .mn-more-wrap>button{padding:8px 7px!important;font-size:10px!important;gap:3px!important}
  }
+ 
+  /* Final navigation polish: balanced spacing, quiet surfaces, consistent controls */
+  #mercobTopNav{
+   width:100%!important;box-sizing:border-box!important;min-height:58px!important;
+   display:flex!important;align-items:center!important;gap:8px!important;
+   margin:12px 0 22px!important;padding:7px!important;
+   border:1px solid #e7ebf0!important;border-radius:16px!important;
+   background:linear-gradient(180deg,#ffffff 0%,#fafbfd 100%)!important;
+   box-shadow:0 4px 16px rgba(24,43,58,.045)!important;backdrop-filter:blur(12px);
+  }
+  #mercobTopNav .mn-primary{
+   display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(88px,.82fr)!important;
+   align-items:center!important;gap:5px!important;flex:1 1 auto!important;min-width:0!important;overflow:visible!important;
+  }
+  #mercobTopNav .mn-primary>button,#mercobTopNav .mn-more-wrap>button{
+   box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important;
+   width:100%!important;min-width:0!important;min-height:44px!important;padding:10px 12px!important;gap:8px!important;
+   border:1px solid transparent!important;border-radius:11px!important;background:transparent!important;
+   color:#5d6b79!important;font:600 12px/1.35 Inter,"IBM Plex Sans Arabic",sans-serif!important;letter-spacing:0!important;
+   transition:background-color .16s ease,border-color .16s ease,color .16s ease!important;
+  }
+  #mercobTopNav .mn-primary>button:hover,#mercobTopNav .mn-more-wrap>button:hover{background:#f4f6f8!important;color:#26384d!important}
+  #mercobTopNav .mn-primary>button[aria-current="page"]{
+   background:#fff1e8!important;border-color:#f5dfd2!important;color:#bd4d16!important;box-shadow:none!important;
+  }
+  #mercobTopNav .mn-icon{
+   display:inline-flex!important;align-items:center!important;justify-content:center!important;
+   width:17px!important;height:17px!important;flex:0 0 17px!important;opacity:1!important;color:currentColor!important;
+  }
+  #mercobTopNav .mn-icon svg{width:17px!important;height:17px!important;stroke-width:1.75!important}
+  #mercobTopNav .mn-more-wrap{position:relative!important;min-width:0!important}
+  #mercobTopNav .mn-menu{
+   top:calc(100% + 8px)!important;z-index:100!important;min-width:218px!important;padding:6px!important;
+   border:1px solid #e8edf2!important;border-radius:14px!important;background:#fff!important;
+   box-shadow:0 14px 36px rgba(24,43,58,.13)!important;
+  }
+  #mercobTopNav .mn-menu button{
+   display:flex!important;align-items:center!important;justify-content:flex-start!important;
+   min-height:42px!important;padding:10px 12px!important;border-radius:9px!important;
+   font:500 12px/1.45 Inter,"IBM Plex Sans Arabic",sans-serif!important;color:#48596a!important;text-align:start!important;
+  }
+  #mercobTopNav .mn-menu button:hover{background:#f5f7f9!important;color:#bd4d16!important}
+  #mercobTopNav button:focus-visible{outline:3px solid rgba(232,91,32,.22)!important;outline-offset:2px!important}
+  @media(max-width:760px){
+   #mercobTopNav{min-height:52px!important;margin:8px 0 17px!important;padding:5px!important;gap:0!important;border-radius:14px!important}
+   #mercobTopNav .mn-primary{
+    display:flex!important;gap:3px!important;min-width:0!important;overflow-x:auto!important;overflow-y:hidden!important;
+    scrollbar-width:none!important;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;
+   }
+   #mercobTopNav .mn-primary::-webkit-scrollbar{display:none!important}
+   #mercobTopNav .mn-primary>button,#mercobTopNav .mn-more-wrap>button{
+    flex:0 0 auto!important;width:auto!important;min-width:68px!important;min-height:40px!important;
+    padding:8px 10px!important;gap:6px!important;border-radius:10px!important;font-size:11px!important;
+   }
+   #mercobTopNav .mn-more-wrap{flex:0 0 auto!important}
+   #mercobTopNav .mn-menu{
+    position:fixed!important;top:112px!important;inset-inline:12px!important;min-width:0!important;
+    max-height:calc(100dvh - 132px)!important;overflow-y:auto!important;
+   }
+  }
+  @media(max-width:390px){
+   #mercobTopNav .mn-primary>button,#mercobTopNav .mn-more-wrap>button{
+    min-width:62px!important;padding:8px 7px!important;gap:5px!important;font-size:10.5px!important;
+   }
+   #mercobTopNav .mn-icon,#mercobTopNav .mn-icon svg{width:15px!important;height:15px!important;flex-basis:15px!important}
+  }
+
  `;document.head.appendChild(s)
 }
 function build(){
